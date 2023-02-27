@@ -1,4 +1,4 @@
-package com.plantit.dto;
+package com.plantit.DATA.dto;
 
 public class AddressDTO {
 

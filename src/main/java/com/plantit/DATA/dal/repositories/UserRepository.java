@@ -1,4 +1,4 @@
-package com.plantit.dal.repositories;
+package com.plantit.DATA.dal.repositories;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
