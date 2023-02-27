@@ -1,8 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.Conversation;
-import com.plantit.dal.repositories.ConversationRepository;
-import com.plantit.dto.service.ConversationService;
+import com.plantit.DATA.dal.entities.Conversation;
+import com.plantit.DATA.dal.repositories.ConversationRepository;
+import com.plantit.DATA.dto.service.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class ConversationServiceImpl implements ConversationService {
 
-    @Autowired
     ConversationRepository conversationRepository;
 
     public Conversation createConversation(Conversation c) {

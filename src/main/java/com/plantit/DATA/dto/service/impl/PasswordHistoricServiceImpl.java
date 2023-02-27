@@ -1,8 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.PasswordHistoric;
-import com.plantit.dal.repositories.PasswordHistoricRepository;
-import com.plantit.dto.service.PasswordHistoricService;
+import com.plantit.DATA.dal.entities.PasswordHistoric;
+import com.plantit.DATA.dal.repositories.PasswordHistoricRepository;
+import com.plantit.DATA.dto.service.PasswordHistoricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

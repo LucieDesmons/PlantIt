@@ -1,6 +1,6 @@
-package com.plantit.dto.service;
+package com.plantit.DATA.dto.service;
 
-import com.plantit.dal.entities.Message;
+import com.plantit.DATA.dal.entities.Message;
 
 import java.util.List;
 

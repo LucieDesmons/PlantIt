@@ -1,9 +1,9 @@
-package com.plantit.bll;
+package com.plantit.BLL;
 
-import com.plantit.dal.entities.*;
-import com.plantit.dal.repositories.AddressRepository;
-import com.plantit.dal.repositories.UserRepository;
-import com.plantit.dto.*;
+import com.plantit.DATA.dal.entities.*;
+import com.plantit.DATA.dal.repositories.AddressRepository;
+import com.plantit.DATA.dal.repositories.UserRepository;
+import com.plantit.DATA.dto.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +25,9 @@ public class ManageUser {
         this.userRepository = userRepository;
     }
 
-    public User createUser(UserDTO userDTO) {
+    public com.plantit.DATA.dal.entities.User createUser(com.plantit.DATA.dto.UserDTO userDTO) {
 
-        User user = new User();
+        User user = new com.plantit.DATA.dal.entities.User();
         user.setFirstName(userDTO.getFirstName());
         user.setName(userDTO.getName());
         user.setPhone(userDTO.getPhone());

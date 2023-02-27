@@ -1,6 +1,6 @@
-package com.plantit.dto.service;
+package com.plantit.DATA.dto.service;
 
-import com.plantit.dal.entities.PasswordHistoric;
+import com.plantit.DATA.dal.entities.PasswordHistoric;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.PlantReference;
-import com.plantit.dal.repositories.PlantReferenceRepository;
-import com.plantit.dto.service.PlantReferenceService;
+import com.plantit.DATA.dal.entities.PlantReference;
+import com.plantit.DATA.dal.repositories.PlantReferenceRepository;
+import com.plantit.DATA.dto.service.PlantReferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

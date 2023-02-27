@@ -1,4 +1,4 @@
-package com.plantit.dal.entities;
+package com.plantit.DATA.dal.entities;
 
 import jakarta.persistence.*;
 import java.util.Set;

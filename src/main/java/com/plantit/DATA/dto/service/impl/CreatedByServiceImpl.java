@@ -1,9 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.CreatedBy;
-import com.plantit.dal.repositories.CreatedByRepository;
-import com.plantit.dto.service.CreatedByService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.plantit.DATA.dal.entities.CreatedBy;
+import com.plantit.DATA.dal.repositories.CreatedByRepository;
+import com.plantit.DATA.dto.service.CreatedByService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 @Service
 public class CreatedByServiceImpl implements CreatedByService {
 
-    @Autowired
     CreatedByRepository createdByRepository;
 
     public CreatedBy createCreatedBy(CreatedBy c) {

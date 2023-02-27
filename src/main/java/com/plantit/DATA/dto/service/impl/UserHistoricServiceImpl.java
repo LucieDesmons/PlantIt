@@ -1,8 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.UserHistoric;
-import com.plantit.dal.repositories.UserHistoricRepository;
-import com.plantit.dto.service.UserHistoricService;
+import com.plantit.DATA.dal.entities.UserHistoric;
+import com.plantit.DATA.dal.repositories.UserHistoricRepository;
+import com.plantit.DATA.dto.service.UserHistoricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

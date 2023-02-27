@@ -1,8 +1,8 @@
-package com.plantit.dto.service.impl;
+package com.plantit.DATA.dto.service.impl;
 
-import com.plantit.dal.entities.Picture;
-import com.plantit.dal.repositories.PictureRepository;
-import com.plantit.dto.service.PictureService;
+import com.plantit.DATA.dal.entities.Picture;
+import com.plantit.DATA.dal.repositories.PictureRepository;
+import com.plantit.DATA.dto.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
