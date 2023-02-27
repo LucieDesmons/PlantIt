@@ -7,7 +7,6 @@ import com.plantit.DATA.dto.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -25,9 +24,9 @@ public class ManageUser {
         this.userRepository = userRepository;
     }
 
-    public com.plantit.DATA.dal.entities.User createUser(com.plantit.DATA.dto.UserDTO userDTO) {
+    public User createUser(UserDTO userDTO) {
 
-        User user = new com.plantit.DATA.dal.entities.User();
+        User user = new User();
         user.setFirstName(userDTO.getFirstName());
         user.setName(userDTO.getName());
         user.setPhone(userDTO.getPhone());
@@ -100,5 +99,4 @@ public class ManageUser {
         return userRepository.save(user);
     }
 
-    //change name commit
 }
