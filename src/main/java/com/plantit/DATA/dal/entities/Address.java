@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.AddressDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -102,6 +103,15 @@ public class Address {
         this.way = way;
         this.additionalAddress = additionalAddress;
         this.town = town;
+    }
+
+    public Address(AddressDTO addressDTO){
+        super();
+        this.number = addressDTO.getNumber();
+        this.postalCode = addressDTO.getPostalCode();
+        this.way = addressDTO.getWay();
+        this.additionalAddress = addressDTO.getAdditionalAddress();
+        this.town = addressDTO.getTown();
     }
 
 

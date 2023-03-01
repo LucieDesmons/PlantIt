@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.PictureDTO;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -83,6 +84,12 @@ public class Picture {
         super();
         this.way = way;
         this.updateDate = updateDate;
+    }
+
+    public Picture(PictureDTO pictureDTO){
+        super();
+        this.way = pictureDTO.getWay();
+        this.updateDate = pictureDTO.getUpdateDate();
     }
 
 

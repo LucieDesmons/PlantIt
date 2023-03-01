@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.ConversationDTO;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -84,6 +85,10 @@ public class Conversation {
         super();
         this.user1 = user1;
         this.user2 = user2;
+    }
+
+    public Conversation(ConversationDTO conversationDTO){
+        super();
     }
 
 

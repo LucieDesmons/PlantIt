@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,6 +21,28 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf()
+//                .disable()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/api/**")
+//                .hasRole("ADMIN")
+//                .requestMatchers("/anonymous")
+//                .anonymous()
+//                .requestMatchers("/login*")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/perfom_login")
+//                .defaultSuccessUrl("/home", true)
+//                .failureUrl("/login?error=true")
+//                .and()
+//                .logout()
+//                .logoutUrl("/perform_logout")
+//                .deleteCookies("JSESSIONID");
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home").permitAll()
                         .anyRequest().permitAll()
@@ -41,7 +65,17 @@ public class WebSecurityConfig {
                         .roles("USER")
                         .build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin = User.withUsername("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

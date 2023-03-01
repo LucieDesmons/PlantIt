@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.UserTypeDTO;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -59,6 +60,11 @@ public class UserType {
     public UserType(String label) {
         super();
         this.label = label;
+    }
+
+    public UserType(UserTypeDTO userTypeDTO) {
+        super();
+        this.label = userTypeDTO.getLabel();
     }
 
 

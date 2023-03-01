@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.PlantReferenceDTO;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -141,6 +142,16 @@ public class PlantReference {
         this.reproduction = reproduction;
         this.lifetime = lifetime;
         this.placeLife = placeLife;
+    }
+
+    public PlantReference(PlantReferenceDTO plantReferenceDTO){
+        super();
+        this.family = plantReferenceDTO.getFamily();
+        this.size = plantReferenceDTO.getSize();
+        this.foodSource = plantReferenceDTO.getFoodSource();
+        this.reproduction = plantReferenceDTO.getReproduction();
+        this.lifetime = plantReferenceDTO.getLifetime();
+        this.placeLife = plantReferenceDTO.getPlaceLife();
     }
 
 

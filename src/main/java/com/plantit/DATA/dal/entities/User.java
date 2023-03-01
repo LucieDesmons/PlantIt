@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.plantit.DATA.dto.UserDTO;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -260,6 +261,25 @@ public class User {
         this.godFather = godFather;
         this.address = address;
         this.userType = userType;
+    }
+
+    public User(UserDTO userDTO){
+        super();
+        this.name = userDTO.getName();
+        this.firstName = userDTO.getFirstName();
+        this.phone = userDTO.getPhone();
+        this.email = userDTO.getEmail();
+        this.login = userDTO.getLogin();
+        this.password = userDTO.getPassword();
+        if (userDTO.getDegree() != null)
+            this.degree = userDTO.getDegree();
+        if (userDTO.getSpecialization() != null)
+            this.specialization = userDTO.getSpecialization();
+        this.hobbies = userDTO.getHobbies();
+        // ref en boucle ça me rend fou
+        //this.godFather = userDTO.getGodFatherDTO();
+        this.address = new Address(userDTO.getAddressDTO());
+        this.userType =  new UserType(userDTO.getUserTypeDTO());
     }
 
 
