@@ -43,6 +43,7 @@ public class WebSecurityConfig {
 //                .logoutUrl("/perform_logout")
 //                .deleteCookies("JSESSIONID");
 
+                .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home").permitAll()
                         .anyRequest().permitAll()
