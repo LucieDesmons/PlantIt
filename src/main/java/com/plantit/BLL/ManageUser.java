@@ -2,6 +2,8 @@ package com.plantit.BLL;
 
 import com.plantit.DATA.dal.entities.*;
 import com.plantit.DATA.dal.repositories.AddressRepository;
+import com.plantit.DATA.dal.repositories.PasswordHistoricRepository;
+import com.plantit.DATA.dal.repositories.UserHistoricRepository;
 import com.plantit.DATA.dal.repositories.UserRepository;
 import com.plantit.DATA.dto.*;
 import jakarta.transaction.Transactional;
@@ -18,10 +20,16 @@ import static utility.Utility.END_DATE;
 public class ManageUser {
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
+    private final UserHistoricRepository userHistoricRepository;
+    private final PasswordHistoricRepository passwordHistoricRepository;
 
-    public ManageUser(AddressRepository addressRepository, UserRepository userRepository) {
+    public ManageUser(AddressRepository addressRepository, UserRepository userRepository,
+                      UserHistoricRepository userHistoricRepository,
+                      PasswordHistoricRepository passwordHistoricRepository) {
         this.addressRepository = addressRepository;
         this.userRepository = userRepository;
+        this.userHistoricRepository = userHistoricRepository;
+        this.passwordHistoricRepository = passwordHistoricRepository;
     }
 
     public User createUser(UserDTO userDTO) {
@@ -48,43 +56,47 @@ public class ManageUser {
         }
 
         // Convert AddressDTO to Address
-        AddressDTO addressDTO = new AddressDTO();
         Address address = new Address();
-        address.setNumber(addressDTO.getNumber());
-        address.setPostalCode(addressDTO.getPostalCode());
-        address.setWay(addressDTO.getWay());
-        address.setAdditionalAddress(addressDTO.getAdditionalAddress());
-        address.setTown(addressDTO.getTown());
+        address.setNumber(userDTO.getAddressDTO().getNumber());
+        address.setPostalCode(userDTO.getAddressDTO().getPostalCode());
+        address.setWay(userDTO.getAddressDTO().getWay());
+        address.setAdditionalAddress(userDTO.getAddressDTO().getAdditionalAddress());
+        address.setTown(userDTO.getAddressDTO().getTown());
         address = addressRepository.save(address);
 
         user.setAddress(address);
 
+        user = userRepository.save(user);
+
         // Convert UserHistoricDTO to UserHistoric and add to User
-        UserHistoricDTO userHistoricDTO = new UserHistoricDTO();
         UserHistoric userHistoric = new UserHistoric();
+        userHistoric.setUser(user);
         userHistoric.setStartDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         userHistoric.setEndDate(END_DATE);
-        userHistoric.setUser(user);
+        userHistoricRepository.save(userHistoric);
 
         // Convert PasswordHistoricDTO to PasswordHistoric and add to User
         PasswordHistoricDTO passwordHistoricDTO = new PasswordHistoricDTO();
         PasswordHistoric passwordHistoric = new PasswordHistoric();
-        passwordHistoric.setPassword(passwordHistoricDTO.getPassword());
-        passwordHistoric.setUpdateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         passwordHistoric.setUser(user);
+        passwordHistoric.setPassword(userDTO.getPassword());
+        passwordHistoric.setUpdateDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        passwordHistoricRepository.save(passwordHistoric);
 
-        return userRepository.save(user);
+        return user;
 
     }
 
-
-    public void createCustomer(UserDTO userDTO) {
+    public User createCustomer(UserDTO userDTO) {
         UserTypeDTO userTypeDTO = new UserTypeDTO();
         userTypeDTO.setIdUserTypeDTO(UserDTO.CUSTUMER_ID);
         userDTO.setUserTypeDTO(userTypeDTO);
         createUser(userDTO);
-    }
 
+        User user = createUser(userDTO);
+
+        return userRepository.save(user);
+    }
 
     public User createBotanist(UserDTO userDTO) {
         UserTypeDTO userTypeDTO = new UserTypeDTO();
@@ -98,5 +110,42 @@ public class ManageUser {
 
         return userRepository.save(user);
     }
+
+   /* public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User updateUser(Long userId, UserDTO userDTO) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+
+        // Update the user information
+        user.setName(userDTO.getName());
+        user.setFirstName(userDTO.getFirstName());
+        user.setPhone(userDTO.getPhone());
+        user.setEmail(userDTO.getEmail());
+        user.setLogin(userDTO.getLogin());
+        user.setPassword(userDTO.getPassword());
+        user.setDegree(userDTO.getDegree());
+        user.setSpecialization(userDTO.getSpecialization());
+        //user.setGodFather(userDTO.getG());
+        //user.setAddress(userDTO.getAddresse());
+       // user.setUserType(userDTO.getUserTypeDTO());
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public List<User> getUsersByType(Type type) {
+        return userRepository.findByType(type);
+    }*/
 
 }
