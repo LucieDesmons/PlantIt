@@ -2,6 +2,8 @@ package com.plantit.DATA.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.plantit.DATA.dal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,19 +33,17 @@ public class UserDTO {
     private String degree;
     private String specialization;
     private String hobbies;
-    private AddressDTO addressDTO;
-    private UserDTO godFatherDTO;
-    private UserTypeDTO userTypeDTO;
-    private Set<ConversationDTO> conversationCollectionDTO;
-    private Set<UserHistoricDTO> userHistoricCollectionDTO;
-    private Set<PasswordHistoricDTO> passwordHistoricCollectionDTO;
-    private Set<UserDTO> godFatherCollectionDTO;
-    private Set<MaintenanceDTO> maintenanceCollectionDTO;
-    private Set<CreatedByDTO> createdByCollectionDTO;
-
-    @JsonIgnoreProperties({"user"})
-    @JsonBackReference
-    private Set<PlantDTO> plantCollectionDTO;
+    private AddressDTO address;
+    private UserDTO godFather;
+    @JsonIgnore
+    private UserTypeDTO userType;
+    private Set<ConversationDTO> conversationCollection;
+    private Set<UserHistoricDTO> userHistoricCollection;
+    private Set<PasswordHistoricDTO> passwordHistoricCollection;
+    private Set<UserDTO> godFatherCollection;
+    private Set<MaintenanceDTO> maintenanceCollection;
+    private Set<CreatedByDTO> createdByCollection;
+    private Set<PlantDTO> plantCollection;
 
     public static UserDTO fromId(Long idUser) {
         UserDTO user = new UserDTO();

@@ -1,23 +1,26 @@
 package com.plantit.DATA.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class UserHistoricDTO {
 
-    private Long idUserHistoricDTO;
+    private Long idUserHistoric;
     private Date startDate;
     private Date endDate;
-    private UserDTO userDTO;
+    @JsonIgnore
+    private UserDTO user;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdUserHistoricDTO() {
-        return idUserHistoricDTO;
+    public Long getIdUserHistoric() {
+        return idUserHistoric;
     }
 
-    public void setIdUserHistoricDTO(Long idUserHistoricDTO) {
-        this.idUserHistoricDTO = idUserHistoricDTO;
+    public void setIdUserHistoric(Long idUserHistoric) {
+        this.idUserHistoric = idUserHistoric;
     }
 
     public Date getStartDate() {
@@ -36,12 +39,12 @@ public class UserHistoricDTO {
         this.endDate = endDate;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
 

@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class PlantItApplication {
 
     public static void main(String[] args) {
-        System.setProperty("spring.profiles.default", "dev");
         SpringApplication.run(PlantItApplication.class, args);
     }
 

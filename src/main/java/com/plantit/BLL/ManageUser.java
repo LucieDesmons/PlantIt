@@ -1,10 +1,8 @@
 package com.plantit.BLL;
 
+import com.plantit.BLL.converter.*;
 import com.plantit.DATA.dal.entities.*;
-import com.plantit.DATA.dal.repositories.AddressRepository;
-import com.plantit.DATA.dal.repositories.PasswordHistoricRepository;
-import com.plantit.DATA.dal.repositories.UserHistoricRepository;
-import com.plantit.DATA.dal.repositories.UserRepository;
+import com.plantit.DATA.dal.repositories.*;
 import com.plantit.DATA.dto.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -14,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static utility.Utility.END_DATE;
@@ -27,14 +24,24 @@ public class ManageUser {
     private final UserRepository userRepository;
     private final UserHistoricRepository userHistoricRepository;
     private final PasswordHistoricRepository passwordHistoricRepository;
+    private final UserConverter userConverter;
+    private final AddressConverter addressConverter;
+    private final UserTypeRepository userTypeRepository;
+    private final UserTypeConverter userTypeConverter;
 
     public ManageUser(AddressRepository addressRepository, UserRepository userRepository,
                       UserHistoricRepository userHistoricRepository,
-                      PasswordHistoricRepository passwordHistoricRepository) {
+                      PasswordHistoricRepository passwordHistoricRepository,
+                      UserConverter userConverter, AddressConverter addressConverter,
+                      UserTypeRepository userTypeRepository, UserTypeConverter userTypeConverter) {
         this.addressRepository = addressRepository;
         this.userRepository = userRepository;
         this.userHistoricRepository = userHistoricRepository;
         this.passwordHistoricRepository = passwordHistoricRepository;
+        this.userConverter = userConverter;
+        this.addressConverter = addressConverter;
+        this.userTypeRepository = userTypeRepository;
+        this.userTypeConverter = userTypeConverter;
     }
 
     public User createUser(UserDTO userDTO) {
@@ -48,27 +55,27 @@ public class ManageUser {
         user.setPassword(userDTO.getPassword());
         user.setHobbies(userDTO.getHobbies());
 
-        if (userDTO.getGodFatherDTO() != null) {
-            User godFather = userRepository.findById(userDTO.getGodFatherDTO().getIdUser())
-                    .orElseThrow(() -> new EntityNotFoundException("GodFather not found with id: " + userDTO.getGodFatherDTO().getIdUser()));
+        if (userDTO.getGodFather() != null) {
+            User godFather = userRepository.findById(userDTO.getGodFather().getIdUser())
+                    .orElseThrow(() -> new EntityNotFoundException("GodFather not found with id: " + userDTO.getGodFather().getIdUser()));
             user.setGodFather(godFather);
         } else {
             user.setGodFather(null);
         }
 
-        if (userDTO.getUserTypeDTO() != null) {
+        if (userDTO.getUserType() != null) {
             UserType userType = new UserType();
-            userType.setIdUserType(userDTO.getUserTypeDTO().getIdUserTypeDTO());
+            userType.setIdUserType(userDTO.getUserType().getIdUserType());
             user.setUserType(userType);
         }
 
         // Convert AddressDTO to Address
         Address address = new Address();
-        address.setNumber(userDTO.getAddressDTO().getNumber());
-        address.setPostalCode(userDTO.getAddressDTO().getPostalCode());
-        address.setWay(userDTO.getAddressDTO().getWay());
-        address.setAdditionalAddress(userDTO.getAddressDTO().getAdditionalAddress());
-        address.setTown(userDTO.getAddressDTO().getTown());
+        address.setNumber(userDTO.getAddress().getNumber());
+        address.setPostalCode(userDTO.getAddress().getPostalCode());
+        address.setWay(userDTO.getAddress().getWay());
+        address.setAdditionalAddress(userDTO.getAddress().getAdditionalAddress());
+        address.setTown(userDTO.getAddress().getTown());
         address = addressRepository.save(address);
 
         user.setAddress(address);
@@ -96,8 +103,8 @@ public class ManageUser {
 
     public User createCustomer(UserDTO userDTO) {
         UserTypeDTO userTypeDTO = new UserTypeDTO();
-        userTypeDTO.setIdUserTypeDTO(UserDTO.CUSTUMER_ID);
-        userDTO.setUserTypeDTO(userTypeDTO);
+        userTypeDTO.setIdUserType(UserDTO.CUSTUMER_ID);
+        userDTO.setUserType(userTypeDTO);
         createUser(userDTO);
 
         User user = createUser(userDTO);
@@ -107,8 +114,8 @@ public class ManageUser {
 
     public User createBotanist(UserDTO userDTO) {
         UserTypeDTO userTypeDTO = new UserTypeDTO();
-        userTypeDTO.setIdUserTypeDTO(UserDTO.BOTANIST_ID);
-        userDTO.setUserTypeDTO(userTypeDTO);
+        userTypeDTO.setIdUserType(UserDTO.BOTANIST_ID);
+        userDTO.setUserType(userTypeDTO);
 
         User user = createUser(userDTO);
 
@@ -118,161 +125,120 @@ public class ManageUser {
         return userRepository.save(user);
     }
 
-    public ResponseEntity<List<UserDTO>> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        List<UserDTO> usersDTO =  users.stream()
-                .map((user) -> mapToUserDTO(user))
+    public UserDTO getUserById(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            UserDTO userDTO = userConverter.convertEntityToDTO(user.get());
+
+            // Charger l'adresse à partir de la base de données
+            Long addressId = user.get().getAddress().getIdAddress();
+            Optional<Address> address = addressRepository.findById(addressId);
+            if (address.isPresent()) {
+                AddressDTO addressDTO = addressConverter.convertEntityToDTO(address.get());
+                userDTO.setAddress(addressDTO);
+            }
+
+            // Charger le type à partir de la base de données
+            Long userTypeId = user.get().getUserType().getIdUserType();
+            Optional<UserType> userType = userTypeRepository.findById(userTypeId);
+            if (userType.isPresent()) {
+                UserTypeDTO userTypeDTO = userTypeConverter.convertEntityToDTO(userType.get());
+                userDTO.setUserType(userTypeDTO);
+            }
+
+            return userDTO;
+        }
+        return null;
+    }
+
+    public UserDTO Login(String login, String password) {
+        Optional<User> user = userRepository.findByLogin(login);
+
+        if (user.isPresent()) {
+            if (user.get().getPassword().equals(password)) {
+                return getUserById(user.get().getIdUser());
+            }
+        }
+        throw new EntityNotFoundException("User not found with login: " + login);
+    }
+
+    public List<UserDTO> getAllUsers() {
+
+        return userRepository.findAll().stream()
+                .map((user) -> userConverter.convertEntityToDTO(user))
                 .collect(Collectors.toList());
-
-        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
-    private UserDTO mapToUserDTO(User user) {
-        UserDTO userDTO = new UserDTO();
+    public User updateUser(Long userId, UserDTO userDTO) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        // simple
-        userDTO.setName(user.getName());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setPhone(user.getPhone());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setLogin(user.getLogin());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setDegree(user.getDegree());
-        userDTO.setSpecialization(user.getSpecialization());
-        userDTO.setHobbies(user.getHobbies());
+        user.setFirstName(userDTO.getFirstName());
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setEmail(userDTO.getEmail());
+        user.setLogin(userDTO.getLogin());
+        user.setPassword(userDTO.getPassword());
+        user.setHobbies(userDTO.getHobbies());
 
-        //complex
-        userDTO.setAddressDTO(mapToAddressDTO(user.getAddress()));
+        if (userDTO.getGodFather() != null) {
+            User godFather = userRepository.findById(userDTO.getGodFather().getIdUser())
+                    .orElseThrow(() -> new EntityNotFoundException("GodFather not found with id: " + userDTO.getGodFather().getIdUser()));
+            user.setGodFather(godFather);
+        }
 
-        userDTO.setUserTypeDTO(mapUserTypeToDTO(user.getUserType()));
+        if (userDTO.getAddress() != null) {
+            Address address = addressRepository.findById(userDTO.getAddress().getIdAddress())
+                    .orElseThrow(() -> new EntityNotFoundException("Address not found with id: " + userDTO.getAddress().getIdAddress()));
+            address.setNumber(userDTO.getAddress().getNumber());
+            address.setPostalCode(userDTO.getAddress().getPostalCode());
+            address.setWay(userDTO.getAddress().getWay());
+            address.setAdditionalAddress(userDTO.getAddress().getAdditionalAddress());
+            address.setTown(userDTO.getAddress().getTown());
+            address = addressRepository.save(address);
 
-        userDTO.setConversationCollectionDTO(user.getConversationCollection()
-                .stream()
-                .map( (conversation) -> mapToConversationDTO(conversation))
-                .collect(Collectors.toSet()));
+            user.setAddress(address);
+        }
 
-        userDTO.setUserHistoricCollectionDTO(user.getUserHistoricCollection()
-                .stream()
-                .map( (userHistoric) -> mapToUserHistoricDTO(userHistoric))
-                .collect(Collectors.toSet()));
+        if (userDTO.getUserType() != null) {
+            UserType userType = userTypeRepository.findById(userDTO.getUserType().getIdUserType())
+                    .orElseThrow(() -> new EntityNotFoundException("UserType not found with id: " + userDTO.getUserType().getIdUserType()));
+            userType.setIdUserType(userDTO.getUserType().getIdUserType());
+            user.setUserType(userType);
+        }
 
-        userDTO.setPasswordHistoricCollectionDTO(user.getPasswordHistoricCollection()
-                .stream()
-                .map( (passwordHistoric) -> mapToPasswordHistoricDTO(passwordHistoric))
-                .collect(Collectors.toSet()));
-
-        // TODO: 28/02/2023 Ces foutus godfather
-        // userDTO.setGodFatherDTO(user.getGodFather());
-
-        userDTO.setMaintenanceCollectionDTO(user.getMaintenanceCollection()
-                .stream()
-                .map( (maintenance) -> mapToHMaintenanceDTO(maintenance))
-                .collect(Collectors.toSet()));
-
-        // TODO: 28/02/2023 CreatedBy
-
-        userDTO.setPlantCollectionDTO(user.getPlantCollection()
-                .stream()
-                .map((plant) -> mapToPlantDTO(plant))
-                .collect(Collectors.toSet()));
-
-        return userDTO;
+        return userRepository.save(user);
     }
 
-    private AddressDTO mapToAddressDTO(Address address){
-        AddressDTO addressDTO = new AddressDTO();
+    @Transactional
+    public void deleteUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            // Supprimer les enregistrements d'historique de mot de passe associés à l'utilisateur
+            Set<PasswordHistoric> passwordHistoricSet = user.get().getPasswordHistoricCollection();
+            for (PasswordHistoric passwordHistoric : passwordHistoricSet) {
+                passwordHistoricRepository.delete(passwordHistoric);
+            }
 
-        addressDTO.setNumber(address.getNumber());
-        addressDTO.setPostalCode(address.getPostalCode());
-        addressDTO.setWay(address.getWay());
-        addressDTO.setAdditionalAddress(address.getAdditionalAddress());
-        addressDTO.setTown(address.getTown());
+            // Supprimer les enregistrements d'utilisateur de mot de passe associés à l'utilisateur
+            Set<UserHistoric> userHistoricSet = user.get().getUserHistoricCollection();
+            for (UserHistoric userHistoric : userHistoricSet) {
+                userHistoricRepository.delete(userHistoric);
+            }
 
-        return addressDTO;
+            // Supprimer l'utilisateur
+            userRepository.delete(user.get());
+        } else {
+            throw new EntityNotFoundException("User not found with id: " + userId);
+        }
     }
 
-    private UserTypeDTO mapUserTypeToDTO(UserType userType){
-        UserTypeDTO userTypeDTO = new UserTypeDTO();
-
-        userTypeDTO.setLabel(userTypeDTO.getLabel());
-
-        return userTypeDTO;
+    public List<UserDTO> getUsersByType(Long userTypeId) {
+        UserType userType = userTypeRepository.findById(userTypeId)
+                .orElseThrow(() -> new EntityNotFoundException("UserType not found with id: " + userTypeId));
+        return userRepository.findByUserType(userType)
+                .stream().map((user) -> userConverter.convertEntityToDTO(user))
+                .collect(Collectors.toList());
     }
 
-    private ConversationDTO mapToConversationDTO(Conversation conversation){
-        ConversationDTO conversationDTO = new ConversationDTO();
-
-        // TODO: 28/02/2023 conversion entity to DTO
-
-        return conversationDTO;
-    }
-
-    private UserHistoricDTO mapToUserHistoricDTO(UserHistoric userHistoric){
-        UserHistoricDTO userHistoricDTO = new UserHistoricDTO();
-
-        // TODO: 28/02/2023 UserHistoric entity to DTO
-
-        return userHistoricDTO;
-    }
-
-    private PasswordHistoricDTO mapToPasswordHistoricDTO(PasswordHistoric passwordHistoric){
-        PasswordHistoricDTO passwordHistoricDTO = new PasswordHistoricDTO();
-
-        passwordHistoricDTO.setPassword(passwordHistoric.getPassword());
-        passwordHistoricDTO.setUpdateDate(passwordHistoric.getUpdateDate());
-        // TODO: 28/02/2023 map le user en DTO mais comment ? car risque de boucle infini
-
-        return passwordHistoricDTO;
-    }
-
-    private MaintenanceDTO mapToHMaintenanceDTO(Maintenance maintenance){
-        MaintenanceDTO maintenanceDTO = new MaintenanceDTO();
-
-        // TODO: 28/02/2023 La UserCollection encore et toujours
-
-        maintenanceDTO.setPredictedDate(maintenance.getPredictedDate());
-        maintenanceDTO.setRealizedDate(maintenance.getRealizedDate());
-        maintenanceDTO.setReport(maintenanceDTO.getReport());
-        maintenanceDTO.setPictureCollectionDTO(maintenance.getPictureCollection()
-                .stream()
-                .map((picture) -> mapToPictureDTO(picture))
-                .collect(Collectors.toSet()));
-
-        return maintenanceDTO;
-    }
-
-    private PlantDTO mapToPlantDTO(Plant plant){
-        PlantDTO plantDTO = new PlantDTO();
-
-        plantDTO.setPlacePlant(plant.getPlacePlant());
-        plantDTO.setContainer(plant.getContainer());
-        plantDTO.setHumidity(plant.getHumidity());
-        plantDTO.setClarity(plant.getClarity());
-
-        // TODO: 28/02/2023 UserSet Classic comme d'hab
-
-        plantDTO.setPictureCollection(plant.getPictureCollection()
-                .stream()
-                .map((picture) -> mapToPictureDTO(picture))
-                .collect(Collectors.toSet()));
-
-        plantDTO.setConversationCollection(plant.getConversationCollection()
-                .stream()
-                .map( (conversation) -> mapToConversationDTO(conversation))
-                .collect(Collectors.toSet()));
-
-        return plantDTO;
-    }
-
-    private PictureDTO mapToPictureDTO(Picture picture){
-        PictureDTO pictureDTO = new PictureDTO();
-
-        pictureDTO.setWay(picture.getWay());
-        pictureDTO.setUpdateDate(picture.getUpdateDate());
-
-        // MaintenanceCollection est déjà fait plus haut, dans lequel on map les picture, risque de boucle
-        // PlantCollection est déjà fait plus haut, dans lequel on map les picture, risque de boucle
-
-        return pictureDTO;
-    }
 }

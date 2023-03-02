@@ -1,23 +1,26 @@
 package com.plantit.DATA.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class PasswordHistoricDTO {
 
-    private Long idHistoricDTO;
+    private Long idHistoric;
     private String password;
     private Date updateDate;
-    private UserDTO userDTO;
+    @JsonIgnore
+    private UserDTO user;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdHistoricDTO() {
-        return idHistoricDTO;
+    public Long getIdHistoric() {
+        return idHistoric;
     }
 
-    public void setIdHistoricDTO(Long idHistoricDTO) {
-        this.idHistoricDTO = idHistoricDTO;
+    public void setIdHistoric(Long idHistoric) {
+        this.idHistoric = idHistoric;
     }
 
     public String getPassword() {
@@ -36,12 +39,12 @@ public class PasswordHistoricDTO {
         this.updateDate = updateDate;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
 

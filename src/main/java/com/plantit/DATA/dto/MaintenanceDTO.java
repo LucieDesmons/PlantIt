@@ -5,22 +5,22 @@ import java.util.Set;
 
 public class MaintenanceDTO {
 
-    private Long idMaintenanceDTO;
+    private Long idMaintenance;
     private Date predictedDate;
     private Date realizedDate;
     private String report;
-    private Set<PictureDTO> pictureCollectionDTO;
-    private Set<UserDTO> userCollectionDTO;
+    private Set<PictureDTO> pictureCollection;
+    private Set<UserDTO> userCollection;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdMaintenanceDTO() {
-        return idMaintenanceDTO;
+    public Long getIdMaintenance() {
+        return idMaintenance;
     }
 
-    public void setIdMaintenanceDTO(Long idMaintenanceDTO) {
-        this.idMaintenanceDTO = idMaintenanceDTO;
+    public void setIdMaintenance(Long idMaintenance) {
+        this.idMaintenance = idMaintenance;
     }
 
     public Date getPredictedDate() {
@@ -47,20 +47,20 @@ public class MaintenanceDTO {
         this.report = report;
     }
 
-    public Set<PictureDTO> getPictureCollectionDTO() {
-        return pictureCollectionDTO;
+    public Set<PictureDTO> getPictureCollection() {
+        return pictureCollection;
     }
 
-    public void setPictureCollectionDTO(Set<PictureDTO> pictureCollectionDTO) {
-        this.pictureCollectionDTO = pictureCollectionDTO;
+    public void setPictureCollection(Set<PictureDTO> pictureCollection) {
+        this.pictureCollection = pictureCollection;
     }
 
-    public Set<UserDTO> getUserCollectionDTO() {
-        return userCollectionDTO;
+    public Set<UserDTO> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUserCollectionDTO(Set<UserDTO> userCollectionDTO) {
-        this.userCollectionDTO = userCollectionDTO;
+    public void setUserCollection(Set<UserDTO> userCollection) {
+        this.userCollection = userCollection;
     }
 
 

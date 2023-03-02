@@ -25,11 +25,4 @@ public class PlantReferenceDTO {
     private Set<PlantDTO> plantCollection;
     private Set<PictureReferenceDTO> pictureReferenceCollection;
 
-
-    /***** GETTER & SETTER *****/
-
-
-    /***** CONSTRUCTOR *****/
-
-
 }

@@ -1,20 +1,13 @@
 package com.plantit.DATA.dal.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import com.plantit.DATA.dto.UserDTO;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +30,7 @@ public class User implements UserDetails {
     private String login;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "degree")
@@ -48,40 +42,44 @@ public class User implements UserDetails {
     @Column(name = "hobbies")
     private String hobbies;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_address", referencedColumnName = "id_address")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_address")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("id_address")
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name="id_godfather", nullable=true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_godfather")
     private User godFather;
 
-    @ManyToOne
-    @JoinColumn(name="id_user_type", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_user_type")
+    @JsonIgnore
     private UserType userType;
 
 
     /***** COLLECTION *****/
 
-    @OneToMany(mappedBy="user1")
+    @OneToMany(mappedBy="user1", fetch = FetchType.LAZY)
     private Set<Conversation> conversationCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<UserHistoric> userHistoricCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<PasswordHistoric> passwordHistoricCollection;
 
-    @OneToMany(mappedBy="godFather")
+    @OneToMany(mappedBy="godFather", fetch = FetchType.LAZY)
     private Set<User> godFatherCollection;
 
-    @ManyToMany(mappedBy="userCollection")
+    @ManyToMany(mappedBy="userCollection", fetch = FetchType.LAZY)
     private Set<Maintenance> maintenanceCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<CreatedBy> createdByCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"user"})
     @JsonBackReference
     private Set<Plant> plantCollection;
@@ -89,6 +87,7 @@ public class User implements UserDetails {
 
     /***** GETTER & SETTER *****/
 
+    @JsonProperty("idUser")
     public Long getIdUser() {
         return idUser;
     }
@@ -137,38 +136,8 @@ public class User implements UserDetails {
         this.login = login;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userType.getLabel()));
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     public void setPassword(String password) {
@@ -221,6 +190,11 @@ public class User implements UserDetails {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @JsonProperty("idUserType")
+    public void setUserTypeById(Long idUserType) {
+        userType = UserType.fromId(idUserType);
     }
 
     public Set<Conversation> getConversationCollection() {
@@ -303,39 +277,32 @@ public class User implements UserDetails {
         this.userType = userType;
     }
 
-    public User(UserDTO userDTO){
-        super();
-        this.name = userDTO.getName();
-        this.firstName = userDTO.getFirstName();
-        this.phone = userDTO.getPhone();
-        this.email = userDTO.getEmail();
-        this.login = userDTO.getLogin();
-        this.password = userDTO.getPassword();
-        if (userDTO.getDegree() != null)
-            this.degree = userDTO.getDegree();
-        if (userDTO.getSpecialization() != null)
-            this.specialization = userDTO.getSpecialization();
-        this.hobbies = userDTO.getHobbies();
-        // ref en boucle ça me rend fou
-        //this.godFather = userDTO.getGodFatherDTO();
-        this.address = new Address(userDTO.getAddressDTO());
-        this.userType =  new UserType(userDTO.getUserTypeDTO());
+
+    /***** TO STRING *****/
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", firstName='" + firstName + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", hobbies='" + hobbies + '\'' +
+                ", address=" + address +
+                ", userType=" + userType +
+                ", godFather=" + (godFather == null ? null : godFather.getIdUser()) + // Utilisation d'une expression ternaire pour éviter de l'appeler si godFather est nul
+                ", degree='" + degree + '\'' +
+                ", specialization='" + specialization + '\'' +
+                '}';
     }
 
     public static User fromId(Long idUser) {
         User user = new User();
         user.idUser = idUser;
         return user;
-    }
-
-    /***** TO STRING *****/
-
-    @Override
-    public String toString() {
-        return "User [name=" + name + ", firstName=" + firstName + ", phone=" + phone +
-                "email=" + email + ", login=" + login + ", password=" + password +
-                "degree=" + degree + ", specialization=" + specialization + ", hobbies=" + hobbies +
-                "idGodfather=" + godFather.getIdUser() + ", address=" + address + ", userType=" + userType.getLabel() +"]";
     }
 
 }
