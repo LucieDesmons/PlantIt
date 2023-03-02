@@ -256,7 +256,7 @@ public class ManageUser {
                 .map((picture) -> mapToPictureDTO(picture))
                 .collect(Collectors.toSet()));
 
-        plantDTO.setConversationCollectionDTO(plant.getConversationCollection()
+        plantDTO.setConversationCollection(plant.getConversationCollection()
                 .stream()
                 .map( (conversation) -> mapToConversationDTO(conversation))
                 .collect(Collectors.toSet()));

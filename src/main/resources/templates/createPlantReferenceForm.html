@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Plant Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+</head>
+<body>
+
+<form action="#" th:action="@{/CreateForm}" th:object="${plantReferenceDTO}" method="post">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Nom de la plante</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="plantFamily" class="form-label">Famille</label>
+        <input type="text" th:field="*{family}" class="form-control" id="plantFamily" placeholder="Family">
+        <span th:if="${#fields.hasErrors('family')}" th:errors="*{family}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="plantSize" class="form-label">Taille</label>
+        <input type="text" th:field="*{size}" class="form-control" id="plantSize" placeholder="Taille">
+        <span th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="foodSource" class="form-label">Source d'alimentation</label>
+        <input type="text" th:field="*{foodSource}" class="form-control" id="foodSource" placeholder="Source d'alimentation">
+        <span th:if="${#fields.hasErrors('foodSource')}" th:errors="*{foodSource}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="reproduction" class="form-label">Méthode de reproduction</label>
+        <input type="text" th:field="*{reproduction}" class="form-control" id="reproduction" placeholder="Méthode de reproduction">
+         <span th:if="${#fields.hasErrors('reproduction')}" th:errors="*{reproduction}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="lifetime" class="form-label">Durée de vie</label>
+        <input type="text" th:field="*{lifetime}" class="form-control" id="lifetime" placeholder="lifetime">
+        <span th:if="${#fields.hasErrors('lifetime')}" th:errors="*{lifetime}"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="placeLife" class="form-label">Lieu de vie</label>
+        <input type="text" th:field="*{placeLife}" class="form-control" id="placeLife" placeholder="placeLife">
+        <span th:if="${#fields.hasErrors('placeLife')}" th:errors="*{placeLife}"></span>
+    </div>
+
+    <button type="submit" value="createPlanteReference" class="btn btn-success">Create plant reference</button>
+</form>
+
+</body>
+</html>

@@ -44,8 +44,8 @@ public class PlantController {
     }
 
     @GetMapping("/all")
-    public List<PlantDTO> listAllPlants(){
-        return managePlant.getPlants();
+    public ResponseEntity<List<PlantDTO>> listAllPlants(){
+        return new ResponseEntity<>(managePlant.getPlants(), HttpStatus.OK);
     }
 
     @GetMapping("/plant/{id}")
