@@ -61,12 +61,12 @@ public class UserController {
         return userDTO.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /*@GetMapping("/users")
+    @GetMapping("/users")
     public List<UserDTO> listAllUsers() {
         return manageUser.getAllUsers();
     }
 
-    @PutMapping("/{userId}")
+ /*   @PutMapping("/{userId}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
         User user = manageUser.updateUser(userId, userDTO);
         UserDTO updatedUserDTO = objectMapper.convertValue(user, UserDTO.class);

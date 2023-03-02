@@ -149,14 +149,14 @@ public class ManageUser {
         return null;
     }
 
-   /* public List<UserDTO> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
 
         return userRepository.findAll().stream()
                 .map((user) -> userConverter.convertEntityToDTO(user))
                 .collect(Collectors.toList());
     }
 
-    public User updateUser(Long userId, UserDTO userDTO) {
+ /*   public User updateUser(Long userId, UserDTO userDTO) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
