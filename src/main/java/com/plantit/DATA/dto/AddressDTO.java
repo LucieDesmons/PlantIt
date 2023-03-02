@@ -1,24 +1,26 @@
 package com.plantit.DATA.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AddressDTO {
 
-    private Long idAddressDTO;
+    private Long idAddress;
     private int number;
     private int postalCode;
     private String way;
     private String additionalAddress;
     private String town;
-    private UserDTO userDTO;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdAddressDTO() {
-        return idAddressDTO;
+    @JsonProperty("id_address")
+    public Long getIdAddress() {
+        return idAddress;
     }
 
-    public void setIdAddressDTO(Long idAddressDTO) {
-        this.idAddressDTO = idAddressDTO;
+    public void setIdAddress(Long idAddress) {
+        this.idAddress = idAddress;
     }
 
     public int getNumber() {
@@ -59,14 +61,6 @@ public class AddressDTO {
 
     public void setTown(String town) {
         this.town = town;
-    }
-
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
     }
 
 

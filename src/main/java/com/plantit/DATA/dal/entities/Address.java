@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,12 +27,10 @@ public class Address {
     @Column(name = "town")
     private String town;
 
-    @OneToOne(mappedBy = "address")
-    private User user;
-
 
     /***** GETTER & SETTER *****/
 
+    @JsonProperty("id_address")
     public Long getIdAddress() {
         return idAddress;
     }
@@ -39,6 +38,15 @@ public class Address {
     public void setIdAddress(Long idAddress) {
         this.idAddress = idAddress;
     }
+
+/*    public static Address fromId(Long idAddress, Address address) {
+        if (address == null) {
+            address = new Address();
+        }
+        address.idAddress = idAddress;
+        return address;
+    }*/
+
 
     public int getNumber() {
         return number;
@@ -78,14 +86,6 @@ public class Address {
 
     public void setTown(String town) {
         this.town = town;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 

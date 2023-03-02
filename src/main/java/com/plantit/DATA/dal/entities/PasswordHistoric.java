@@ -1,5 +1,8 @@
 package com.plantit.DATA.dal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -19,13 +22,15 @@ public class PasswordHistoric {
     @Column(name = "update_date")
     private Date updateDate;
 
-    @ManyToOne
-    @JoinColumn(name="id_user", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
+    @JsonIgnoreProperties("passwordHistoricCollection")
     private User user;
 
 
     /***** GETTER & SETTER *****/
 
+    @JsonProperty("idHistoric")
     public Long getIdHistoric() {
         return idHistoric;
     }
@@ -77,7 +82,8 @@ public class PasswordHistoric {
 
     @Override
     public String toString() {
-        return "PasswordHistoric [password=" + password + ", updateDate=" + updateDate + ", idUser=" + user.getIdUser() + "]";
+        String userId = (user != null) ? user.getIdUser().toString() : "null";
+        return "PasswordHistoric [password=" + password + ", updateDate=" + updateDate + ", idUser=" + userId + "]";
     }
 
 }
