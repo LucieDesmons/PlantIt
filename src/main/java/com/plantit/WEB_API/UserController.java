@@ -66,14 +66,14 @@ public class UserController {
         return manageUser.getAllUsers();
     }
 
- /*   @PutMapping("/{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
         User user = manageUser.updateUser(userId, userDTO);
         UserDTO updatedUserDTO = objectMapper.convertValue(user, UserDTO.class);
         return ResponseEntity.ok().body(updatedUserDTO);
     }
 
-    @DeleteMapping("/{userId}")
+ /*   @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         manageUser.deleteUser(userId);
         return ResponseEntity.ok().build();

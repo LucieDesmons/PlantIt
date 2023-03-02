@@ -156,7 +156,7 @@ public class ManageUser {
                 .collect(Collectors.toList());
     }
 
- /*   public User updateUser(Long userId, UserDTO userDTO) {
+    public User updateUser(Long userId, UserDTO userDTO) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
@@ -197,7 +197,7 @@ public class ManageUser {
         return userRepository.save(user);
     }
 
-    @Transactional
+   /* @Transactional
     public void deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
