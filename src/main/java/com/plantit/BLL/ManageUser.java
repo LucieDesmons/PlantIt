@@ -149,6 +149,17 @@ public class ManageUser {
         return null;
     }
 
+    public UserDTO Login(String login, String password) {
+        Optional<User> user = userRepository.findByLogin(login);
+
+        if (user.isPresent()) {
+            if (user.get().getPassword().equals(password)) {
+                return getUserById(user.get().getIdUser());
+            }
+        }
+        throw new EntityNotFoundException("User not found with login: " + login);
+    }
+
     public List<UserDTO> getAllUsers() {
 
         return userRepository.findAll().stream()
@@ -227,4 +238,5 @@ public class ManageUser {
                 .stream().map((user) -> userConverter.convertEntityToDTO(user))
                 .collect(Collectors.toList());
     }
+
 }

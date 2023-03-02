@@ -55,6 +55,18 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @PostMapping("/login")
+    @ApiOperation(value = "Login", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Login successfull"),
+            @ApiResponse(code = 400, message = "Login failed")
+    })
+    public ResponseEntity<UserDTO> Login(String login, String password) {
+
+        Optional<UserDTO> userDTO = Optional.ofNullable(manageUser.Login(login, password));
+        return userDTO.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
         Optional<UserDTO> userDTO = Optional.ofNullable(manageUser.getUserById(userId));
