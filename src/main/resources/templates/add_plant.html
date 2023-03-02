@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Création de profil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <form action="#" th:action="@{/add_plant}" th:object="${plante}" method="post" style="width: 20rem;">
+      <div class="mb-3 form-check">
+        <label for="nom">Nom</label>
+        <input type="text" class="form-control" th:field="*{nom}" id="nom">
+        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+      </div>
+      <select class="form-control form-control-lg">
+        <option>Espèce</option>
+        <input type="text" class="form-control" th:field="*{espece}" id="espece">
+        <option th:text="${espece}"></option>
+      </select>
+      <div class="mb-3 form-check">
+        <label for="clarity">Eclairement (en lumen)</label>
+        <input type="text" class="form-control" th:field="*{clarity}" id="clarity">
+        <span th:if="${#fields.hasErrors('clarity')}" th:errors="*{clarity}"></span>
+      </div>
+      <div class="mb-3 form-check">
+        <label for="humidity">Taux d'humidité (en %)</label>
+        <input type="text" class="form-control" th:field="*{humidity}" id="humidity">
+        <span th:if="${#fields.hasErrors('humidity')}" th:errors="*{humidity}"></span>
+      </div>
+      <div class="mb-3 form-check">
+        <label for="placePlant">Emplacement (pièce)</label>
+        <input type="text" class="form-control" th:field="*{placePlant}" id="placePlant">
+        <span th:if="${#fields.hasErrors('placePlant')}" th:errors="*{placePlant}"></span>
+      </div>
+      <select class="form-control form-control-lg">
+        <option>Type de pot</option>
+        <input type="text" class="form-control" th:field="*{container}" id="container">
+        <option th:text="${container}"></option>
+      </select>
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Photos</label>
+        <input type="text" class="form-control" th:field="*{photos}" id="photos">
+        <input class="form-control" type="file" id="formFileMultiple" multiple>
+      </div>
+      <!--<div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="garde_co">
+        <label class="form-check-label" for="garde_co">Me garder connecté</label>
+      </div>-->
+      <input class="btn btn-primary" type="submit" value="add_plant" style="background-color: #81be43; border: none;">
+    </form>
+  </body>
+</html>
