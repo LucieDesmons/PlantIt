@@ -79,9 +79,9 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-  /*  @GetMapping("/type/{userTypeId}")
+    @GetMapping("/type/{userTypeId}")
     public ResponseEntity<List<UserDTO>> getUsersByType(@PathVariable Long userTypeId) {
         List<UserDTO> users = manageUser.getUsersByType(userTypeId);
         return new ResponseEntity<>(users, HttpStatus.OK);
-    }*/
+    }
 }

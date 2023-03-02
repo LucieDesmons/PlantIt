@@ -220,12 +220,11 @@ public class ManageUser {
         }
     }
 
-  /*  public List<UserDTO> getUsersByType(Long userTypeId) {
+    public List<UserDTO> getUsersByType(Long userTypeId) {
         UserType userType = userTypeRepository.findById(userTypeId)
                 .orElseThrow(() -> new EntityNotFoundException("UserType not found with id: " + userTypeId));
         return userRepository.findByUserType(userType)
                 .stream().map((user) -> userConverter.convertEntityToDTO(user))
                 .collect(Collectors.toList());
     }
-*/
 }
