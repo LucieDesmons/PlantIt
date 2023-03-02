@@ -1,5 +1,7 @@
 package com.plantit.DATA.dal.entities;
 
+import com.fasterxml.jackson.annotation.*;
+import com.plantit.DATA.dto.UserDTO;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -28,6 +30,7 @@ public class User {
     private String login;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "degree")
@@ -39,45 +42,50 @@ public class User {
     @Column(name = "hobbies")
     private String hobbies;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_address", referencedColumnName = "id_address")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_address")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("id_address")
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name="id_godfather", nullable=true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_godfather")
     private User godFather;
 
-    @ManyToOne
-    @JoinColumn(name="id_user_type", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_user_type")
+    @JsonIgnore
     private UserType userType;
 
 
     /***** COLLECTION *****/
 
-    @OneToMany(mappedBy="user1")
+    @OneToMany(mappedBy="user1", fetch = FetchType.LAZY)
     private Set<Conversation> conversationCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<UserHistoric> userHistoricCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<PasswordHistoric> passwordHistoricCollection;
 
-    @OneToMany(mappedBy="godFather")
+    @OneToMany(mappedBy="godFather", fetch = FetchType.LAZY)
     private Set<User> godFatherCollection;
 
-    @ManyToMany(mappedBy="userCollection")
+    @ManyToMany(mappedBy="userCollection", fetch = FetchType.LAZY)
     private Set<Maintenance> maintenanceCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<CreatedBy> createdByCollection;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private Set<Plant> plantCollection;
 
 
     /***** GETTER & SETTER *****/
 
+    @JsonProperty("idUser")
     public Long getIdUser() {
         return idUser;
     }
@@ -166,6 +174,11 @@ public class User {
         this.address = address;
     }
 
+/*    @JsonProperty("idAddress")
+    public void setAddressById(Long idAddress) {
+        address = Address.fromId(idAddress, address);
+    }*/
+
     public User getGodFather() {
         return godFather;
     }
@@ -180,6 +193,11 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @JsonProperty("idUserType")
+    public void setUserTypeById(Long idUserType) {
+        userType = UserType.fromId(idUserType);
     }
 
     public Set<Conversation> getConversationCollection() {
@@ -267,10 +285,21 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [name=" + name + ", firstName=" + firstName + ", phone=" + phone +
-                "email=" + email + ", login=" + login + ", password=" + password +
-                "degree=" + degree + ", specialization=" + specialization + ", hobbies=" + hobbies +
-                "idGodfather=" + godFather.getIdUser() + ", address=" + address + ", userType=" + userType.getLabel() +"]";
+        return "User{" +
+                "idUser=" + idUser +
+                ", firstName='" + firstName + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", hobbies='" + hobbies + '\'' +
+                ", address=" + address +
+                ", userType=" + userType +
+                ", godFather=" + (godFather == null ? null : godFather.getIdUser()) + // Utilisation d'une expression ternaire pour éviter de l'appeler si godFather est nul
+                ", degree='" + degree + '\'' +
+                ", specialization='" + specialization + '\'' +
+                '}';
     }
 
 }

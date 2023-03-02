@@ -5,20 +5,20 @@ import java.util.Set;
 
 public class PictureReferenceDTO {
 
-    private Long idPictureReferenceDTO;
+    private Long idPictureReference;
     private String way;
     private Date modificationDate;
-    private Set<PlantReferenceDTO> plantReferenceCollectionDTO;
+    private Set<PlantReferenceDTO> plantReferenceCollection;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdPictureReferenceDTO() {
-        return idPictureReferenceDTO;
+    public Long getIdPictureReference() {
+        return idPictureReference;
     }
 
-    public void setIdPictureReferenceDTO(Long idPictureReferenceDTO) {
-        this.idPictureReferenceDTO = idPictureReferenceDTO;
+    public void setIdPictureReference(Long idPictureReference) {
+        this.idPictureReference = idPictureReference;
     }
 
     public String getWay() {
@@ -37,12 +37,12 @@ public class PictureReferenceDTO {
         this.modificationDate = modificationDate;
     }
 
-    public Set<PlantReferenceDTO> getPlantReferenceCollectionDTO() {
-        return plantReferenceCollectionDTO;
+    public Set<PlantReferenceDTO> getPlantReferenceCollection() {
+        return plantReferenceCollection;
     }
 
-    public void setPlantReferenceCollectionDTO(Set<PlantReferenceDTO> plantReferenceCollectionDTO) {
-        this.plantReferenceCollectionDTO = plantReferenceCollectionDTO;
+    public void setPlantReferenceCollection(Set<PlantReferenceDTO> plantReferenceCollection) {
+        this.plantReferenceCollection = plantReferenceCollection;
     }
 
 

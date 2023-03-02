@@ -1,22 +1,27 @@
 package com.plantit.DATA.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 public class UserTypeDTO {
 
-    private Long idUserTypeDTO;
+    private Long idUserType;
     private String label;
-    private Set<UserDTO> userCollectionDTO;
+    @JsonIgnore
+    private Set<UserDTO> userCollection;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdUserTypeDTO() {
-        return idUserTypeDTO;
+    @JsonProperty("id_user_type")
+    public Long getIdUserType() {
+        return idUserType;
     }
 
-    public void setIdUserTypeDTO(Long idUserTypeDTO) {
-        this.idUserTypeDTO = idUserTypeDTO;
+    public void setIdUserType(Long idUserType) {
+        this.idUserType = idUserType;
     }
 
     public String getLabel() {
@@ -27,12 +32,12 @@ public class UserTypeDTO {
         this.label = label;
     }
 
-    public Set<UserDTO> getUserCollectionDTO() {
-        return userCollectionDTO;
+    public Set<UserDTO> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUserCollectionDTO(Set<UserDTO> userCollectionDTO) {
-        this.userCollectionDTO = userCollectionDTO;
+    public void setUserCollection(Set<UserDTO> userCollection) {
+        this.userCollection = userCollection;
     }
 
 
