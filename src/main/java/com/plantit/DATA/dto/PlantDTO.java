@@ -1,9 +1,7 @@
 package com.plantit.DATA.dto;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.swing.text.View;
 import java.util.Set;
@@ -12,9 +10,12 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class PlantDTO {
 
     private Long idPlant;
+    private String name;
     private String placePlant;
     private String container;
     private int humidity;
@@ -31,86 +32,12 @@ public class PlantDTO {
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdPlant() {
-        return idPlant;
-    }
-
-    public void setIdPlant(Long idPlant) {
-        this.idPlant = idPlant;
-    }
-
-    public String getPlacePlant() {
-        return placePlant;
-    }
-
-    public void setPlacePlant(String placePlant) {
-        this.placePlant = placePlant;
-    }
-
-    public String getContainer() {
-        return container;
-    }
-
-    public void setContainer(String container) {
-        this.container = container;
-    }
-
-    public int getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(int humidity) {
-        this.humidity = humidity;
-    }
-
-    public String getClarity() {
-        return clarity;
-    }
-
-    public void setClarity(String clarity) {
-        this.clarity = clarity;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
-
-    public PlantReferenceDTO getPlantReference() {
-        return plantReference;
-    }
-
-    public void setPlantReference(PlantReferenceDTO plantReference) {
-        this.plantReference = plantReference;
-    }
-
-    public Set<PictureDTO> getPictureCollection() {
-        return pictureCollection;
-    }
-
-    public void setPictureCollection(Set<PictureDTO> pictureCollection) {
-        this.pictureCollection = pictureCollection;
-    }
-
-    public Set<ConversationDTO> getConversationCollectionDTO() {
-        return conversationCollection;
-    }
-
-    public void setConversationCollectionDTO(Set<ConversationDTO> conversationCollectionDTO) {
-        this.conversationCollection = conversationCollectionDTO;
-    }
-
     @JsonProperty("idUser")
     public void setUserId(Long userId){
         user = UserDTO.fromId(userId);
     }
 
-
     /***** CONSTRUCTOR *****/
-
 
 
 }

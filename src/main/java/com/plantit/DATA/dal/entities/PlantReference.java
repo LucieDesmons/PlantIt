@@ -2,10 +2,18 @@ package com.plantit.DATA.dal.entities;
 
 import com.plantit.DATA.dto.PlantReferenceDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "plant_reference")
 public class PlantReference {
 
@@ -16,6 +24,9 @@ public class PlantReference {
 
     @Column(name = "family")
     private String family;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "size")
     private int size;
@@ -47,92 +58,8 @@ public class PlantReference {
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdPlantReference() {
-        return idPlantReference;
-    }
-
-    public void setIdPlantReference(Long idPlantReference) {
-        this.idPlantReference = idPlantReference;
-    }
-
-    public String getFamily() {
-        return family;
-    }
-
-    public void setFamily(String family) {
-        this.family = family;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public String getFoodSource() {
-        return foodSource;
-    }
-
-    public void setFoodSource(String foodSource) {
-        this.foodSource = foodSource;
-    }
-
-    public String getReproduction() {
-        return reproduction;
-    }
-
-    public void setReproduction(String reproduction) {
-        this.reproduction = reproduction;
-    }
-
-    public int getLifetime() {
-        return lifetime;
-    }
-
-    public void setLifetime(int lifetime) {
-        this.lifetime = lifetime;
-    }
-
-    public String getPlaceLife() {
-        return placeLife;
-    }
-
-    public void setPlaceLife(String placeLife) {
-        this.placeLife = placeLife;
-    }
-
-    public Set<CreatedBy> getCreatedByCollection() {
-        return createdByCollection;
-    }
-
-    public void setCreatedByCollection(Set<CreatedBy> createdByCollection) {
-        this.createdByCollection = createdByCollection;
-    }
-
-    public Set<Plant> getPlantCollection() {
-        return plantCollection;
-    }
-
-    public void setPlantCollection(Set<Plant> plantCollection) {
-        this.plantCollection = plantCollection;
-    }
-
-    public Set<PictureReference> getPictureReferenceCollection() {
-        return pictureReferenceCollection;
-    }
-
-    public void setPictureReferenceCollection(Set<PictureReference> pictureReferenceCollection) {
-        this.pictureReferenceCollection = pictureReferenceCollection;
-    }
-
 
     /***** CONSTRUCTOR *****/
-
-    public PlantReference() {
-
-    }
 
     public PlantReference(String family, int size, String foodSource, String reproduction, int lifetime, String placeLife) {
         super();
@@ -143,17 +70,6 @@ public class PlantReference {
         this.lifetime = lifetime;
         this.placeLife = placeLife;
     }
-
-    public PlantReference(PlantReferenceDTO plantReferenceDTO){
-        super();
-        this.family = plantReferenceDTO.getFamily();
-        this.size = plantReferenceDTO.getSize();
-        this.foodSource = plantReferenceDTO.getFoodSource();
-        this.reproduction = plantReferenceDTO.getReproduction();
-        this.lifetime = plantReferenceDTO.getLifetime();
-        this.placeLife = plantReferenceDTO.getPlaceLife();
-    }
-
 
     /***** TO STRING *****/
 
