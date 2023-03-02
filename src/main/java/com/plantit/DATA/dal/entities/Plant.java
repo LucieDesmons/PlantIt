@@ -1,5 +1,6 @@
 package com.plantit.DATA.dal.entities;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -25,8 +26,11 @@ public class Plant {
     @Column(name = "clarity")
     private String clarity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_user", nullable=false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUser")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonProperty("idUser")
     private User user;
 
     @ManyToOne
@@ -100,6 +104,10 @@ public class Plant {
         this.user = user;
     }
 
+    @JsonProperty("idUser")
+    public void setUserId(Long userId){
+        user = User.fromId(userId);
+    }
     public PlantReference getPlantReference() {
         return plantReference;
     }

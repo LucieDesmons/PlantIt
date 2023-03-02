@@ -11,6 +11,8 @@ import com.plantit.DATA.dto.PlantDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class ManagePlant {
@@ -30,15 +32,22 @@ public class ManagePlant {
 
     public Plant createPlant(PlantDTO plantDTO) {
         Plant plant = new Plant();
-        if (plantDTO.getPlantReferenceDTO() != null){
-            plant.setPlantReference(new PlantReference(plantDTO.getPlantReferenceDTO()));
-        }
-        if (plantDTO.getUserDTO() != null)
-            plant.setUser(new User(plantDTO.getUserDTO()));
 
+        // TODO: 01/03/2023 setPlantReference dans createPlant 
+//        if (plantDTO.getPlantReferenceDTO() != null){
+//            plant.setPlantReference(new PlantReference(plantDTO.getPlantReferenceDTO()));
+//        }
+
+        if (plantDTO.getUserDTO() != null){
+            // TODO: 01/03/2023 en theorie, on devrai avoir l'utilisateur connecté à l'app dans plantDTO
+            Optional<User> currentUser = userRepository.findById(plantDTO.getUserDTO().getIdUserDTO());
+            if (currentUser.isPresent())
+                plant.setUser(currentUser.get());
+        }
+        // TODO: 01/03/2023 conversation
+        // TODO: 01/03/2023 images
 //        if (plantDTO.getConversationCollectionDTO() != null)
 //            plant.setConversationCollection();
-
         plant.setPlacePlant(plantDTO.getPlacePlant());
         plant.setContainer(plantDTO.getContainer());
         plant.setClarity(plantDTO.getClarity());

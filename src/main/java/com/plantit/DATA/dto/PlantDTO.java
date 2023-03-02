@@ -1,8 +1,11 @@
 package com.plantit.DATA.dto;
 
+import jakarta.annotation.Nullable;
+
 import java.util.Set;
 
 public class PlantDTO {
+
 
     private Long idPlantDTO;
     private String placePlant;
