@@ -123,7 +123,7 @@ public class ManageUser {
         return userRepository.save(user);
     }
 
-   /* public UserDTO getUserById(Long userId) {
+    public UserDTO getUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             UserDTO userDTO = userConverter.convertEntityToDTO(user.get());
@@ -149,7 +149,7 @@ public class ManageUser {
         return null;
     }
 
-    public List<UserDTO> getAllUsers() {
+   /* public List<UserDTO> getAllUsers() {
 
         return userRepository.findAll().stream()
                 .map((user) -> userConverter.convertEntityToDTO(user))

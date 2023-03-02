@@ -55,13 +55,13 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-/*    @GetMapping("/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
         Optional<UserDTO> userDTO = Optional.ofNullable(manageUser.getUserById(userId));
         return userDTO.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/users")
+    /*@GetMapping("/users")
     public List<UserDTO> listAllUsers() {
         return manageUser.getAllUsers();
     }
