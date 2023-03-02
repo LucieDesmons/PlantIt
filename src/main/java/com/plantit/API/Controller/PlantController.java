@@ -1,13 +1,9 @@
 package com.plantit.API.Controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plantit.BLL.ManagePlant;
 import com.plantit.BLL.ManageUser;
-import com.plantit.DATA.dal.entities.Plant;
 import com.plantit.DATA.dal.repositories.PlantRepository;
 import com.plantit.DATA.dto.PlantDTO;
-import com.plantit.DATA.dto.UserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,23 +11,18 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.servlet.View;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/plants")
 @Api(value = "PlantController", tags = {"Plant Management"})
 public class PlantController {
     private final ManagePlant managePlant;
-
     private final ManageUser manageUser;
     private final PlantRepository plantRepository;
-
-    private ObjectMapper objectMapper;
 
     public PlantController(ManagePlant managePlant, ManageUser manageUser, PlantRepository plantRepository) {
         this.managePlant = managePlant;
@@ -48,8 +39,8 @@ public class PlantController {
     public ResponseEntity<PlantDTO> createPlant(@RequestBody PlantDTO plantDTO){
         //Plant plant = managePlant.createPlant(plantDTO);
         //return new ResponseEntity<>(plant, HttpStatus.OK);
-        PlantDTO truc = managePlant.createPlant(plantDTO);
-        return new ResponseEntity<>(plantDTO, HttpStatus.CREATED);
+        PlantDTO createdPlant = managePlant.createPlant(plantDTO);
+        return new ResponseEntity<>(createdPlant, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
@@ -57,7 +48,7 @@ public class PlantController {
         return managePlant.getPlants();
     }
 
-    @GetMapping("/plant{id}")
+    @GetMapping("/plant/{id}")
     public ResponseEntity<PlantDTO> getById(@PathVariable long id) {
         Optional<PlantDTO> dto = managePlant.getPlantById(id);
 
@@ -67,5 +58,22 @@ public class PlantController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/plant/{id}")
+    public void deletePlant(@PathVariable long id) {
+
+        try {
+            managePlant.deletePlant(id);
+
+        }catch (Exception e){
+            throw new NotFoundException("La plant n'existe pas²");
+        }
+    }
+
+    @GetMapping("/{idUser}/plants")
+    public ResponseEntity<List<PlantDTO>> getUserPLants(@PathVariable long idUser) {
+        List<PlantDTO> userPlants = managePlant.getPlantFromIdUser(idUser);
+
+        return new ResponseEntity<>(userPlants, HttpStatus.OK);
+    }
 
 }

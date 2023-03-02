@@ -10,10 +10,8 @@ import com.plantit.DATA.dal.repositories.UserRepository;
 import com.plantit.DATA.dto.PlantDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.yaml.snakeyaml.events.Event;
+import org.webjars.NotFoundException;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,9 +61,9 @@ public class ManagePlant {
 
         Plant plant = plantConverter.convertDtoToEntity(plantDTO);
 
-//        Optional<User> currentUser = userRepository.findById(plantDTO.getUser().getIdUser());
-//        if (currentUser.isPresent())
-//            plant.setUser(currentUser.get());
+        Optional<User> currentUser = userRepository.findById(plantDTO.getUser().getIdUser());
+        if (currentUser.isPresent())
+            plant.setUser(currentUser.get());
 
         plant = plantRepository.save(plant);
 
@@ -73,7 +71,10 @@ public class ManagePlant {
     }
 
     public List<PlantDTO> getPlants(){
-        return plantRepository.findAll().stream().map((plant)-> plantConverter.convertEntityToDTO(plant)).collect(Collectors.toList());
+
+        return plantRepository.findAll().stream()
+                .map((plant)-> plantConverter.convertEntityToDTO(plant))
+                .collect(Collectors.toList());
     }
 
     public Optional<PlantDTO> getPlantById(long id){
@@ -84,6 +85,21 @@ public class ManagePlant {
             return Optional.ofNullable(dto);
         }
         else return Optional.empty();
+    }
+
+    public void deletePlant(long id){
+        Optional<Plant> existingPlant = plantRepository.findById(id);
+        if (existingPlant.isPresent()){
+            plantRepository.delete(existingPlant.get());
+        }
+        else throw new NotFoundException("La plant que vous essayez de supprimer n'éxiste pas.");;
+    }
+
+    public List<PlantDTO> getPlantFromIdUser(long idUser){
+
+        return plantRepository.findByUser_IdUser(idUser)
+                .stream().map((plant)-> plantConverter.convertEntityToDTO(plant))
+                .collect(Collectors.toList());
     }
 
 

@@ -103,6 +103,11 @@ public class PlantDTO {
         this.conversationCollection = conversationCollectionDTO;
     }
 
+    @JsonProperty("idUser")
+    public void setUserId(Long userId){
+        user = UserDTO.fromId(userId);
+    }
+
 
     /***** CONSTRUCTOR *****/
 

@@ -6,16 +6,15 @@ import com.plantit.DATA.dal.repositories.PasswordHistoricRepository;
 import com.plantit.DATA.dal.repositories.UserHistoricRepository;
 import com.plantit.DATA.dal.repositories.UserRepository;
 import com.plantit.DATA.dto.*;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,9 +49,11 @@ public class ManageUser {
         user.setHobbies(userDTO.getHobbies());
 
         if (userDTO.getGodFatherDTO() != null) {
-            User godFather = new User();
-            godFather.setIdUser(userDTO.getGodFatherDTO().getIdUserDTO());
+            User godFather = userRepository.findById(userDTO.getGodFatherDTO().getIdUser())
+                    .orElseThrow(() -> new EntityNotFoundException("GodFather not found with id: " + userDTO.getGodFatherDTO().getIdUser()));
             user.setGodFather(godFather);
+        } else {
+            user.setGodFather(null);
         }
 
         if (userDTO.getUserTypeDTO() != null) {
@@ -250,7 +251,7 @@ public class ManageUser {
 
         // TODO: 28/02/2023 UserSet Classic comme d'hab
 
-        plantDTO.setPictureCollectionDTO(plant.getPictureCollection()
+        plantDTO.setPictureCollection(plant.getPictureCollection()
                 .stream()
                 .map((picture) -> mapToPictureDTO(picture))
                 .collect(Collectors.toSet()));
@@ -274,41 +275,4 @@ public class ManageUser {
 
         return pictureDTO;
     }
-   /* public User getUserById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public User updateUser(Long userId, UserDTO userDTO) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-
-        // Update the user information
-        user.setName(userDTO.getName());
-        user.setFirstName(userDTO.getFirstName());
-        user.setPhone(userDTO.getPhone());
-        user.setEmail(userDTO.getEmail());
-        user.setLogin(userDTO.getLogin());
-        user.setPassword(userDTO.getPassword());
-        user.setDegree(userDTO.getDegree());
-        user.setSpecialization(userDTO.getSpecialization());
-        //user.setGodFather(userDTO.getG());
-        //user.setAddress(userDTO.getAddresse());
-       // user.setUserType(userDTO.getUserTypeDTO());
-
-        return userRepository.save(user);
-    }
-
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    public List<User> getUsersByType(Type type) {
-        return userRepository.findByType(type);
-    }*/
-
 }

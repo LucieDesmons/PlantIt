@@ -4,26 +4,26 @@ import java.util.Set;
 
 public class PlantReferenceDTO {
 
-    private Long idPlantReferenceDTO;
+    private Long idPlantReference;
     private String family;
     private int size;
     private String foodSource;
     private String reproduction;
     private int lifetime;
     private String placeLife;
-    private Set<CreatedByDTO> createdByCollectionDTO;
-    private Set<PlantDTO> plantCollectionDTO;
-    private Set<PictureReferenceDTO> pictureReferenceCollectionDTO;
+    private Set<CreatedByDTO> createdByCollection;
+    private Set<PlantDTO> plantCollection;
+    private Set<PictureReferenceDTO> pictureReferenceCollection;
 
 
     /***** GETTER & SETTER *****/
 
-    public Long getIdPlantReferenceDTO() {
-        return idPlantReferenceDTO;
+    public Long getIdPlantReference() {
+        return idPlantReference;
     }
 
-    public void setIdPlantReferenceDTO(Long idPlantReferenceDTO) {
-        this.idPlantReferenceDTO = idPlantReferenceDTO;
+    public void setIdPlantReference(Long idPlantReference) {
+        this.idPlantReference = idPlantReference;
     }
 
     public String getFamily() {
@@ -74,28 +74,28 @@ public class PlantReferenceDTO {
         this.placeLife = placeLife;
     }
 
-    public Set<CreatedByDTO> getCreatedByCollectionDTO() {
-        return createdByCollectionDTO;
+    public Set<CreatedByDTO> getCreatedByCollection() {
+        return createdByCollection;
     }
 
-    public void setCreatedByCollectionDTO(Set<CreatedByDTO> createdByCollectionDTO) {
-        this.createdByCollectionDTO = createdByCollectionDTO;
+    public void setCreatedByCollection(Set<CreatedByDTO> createdByCollection) {
+        this.createdByCollection = createdByCollection;
     }
 
-    public Set<PlantDTO> getPlantCollectionDTO() {
-        return plantCollectionDTO;
+    public Set<PlantDTO> getPlantCollection() {
+        return plantCollection;
     }
 
-    public void setPlantCollectionDTO(Set<PlantDTO> plantCollectionDTO) {
-        this.plantCollectionDTO = plantCollectionDTO;
+    public void setPlantCollection(Set<PlantDTO> plantCollection) {
+        this.plantCollection = plantCollection;
     }
 
-    public Set<PictureReferenceDTO> getPictureReferenceCollectionDTO() {
-        return pictureReferenceCollectionDTO;
+    public Set<PictureReferenceDTO> getPictureReferenceCollection() {
+        return pictureReferenceCollection;
     }
 
-    public void setPictureReferenceCollectionDTO(Set<PictureReferenceDTO> pictureReferenceCollectionDTO) {
-        this.pictureReferenceCollectionDTO = pictureReferenceCollectionDTO;
+    public void setPictureReferenceCollection(Set<PictureReferenceDTO> pictureReferenceCollection) {
+        this.pictureReferenceCollection = pictureReferenceCollection;
     }
 
 
