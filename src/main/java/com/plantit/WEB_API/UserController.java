@@ -73,13 +73,13 @@ public class UserController {
         return ResponseEntity.ok().body(updatedUserDTO);
     }
 
- /*   @DeleteMapping("/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         manageUser.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/type/{userTypeId}")
+  /*  @GetMapping("/type/{userTypeId}")
     public ResponseEntity<List<UserDTO>> getUsersByType(@PathVariable Long userTypeId) {
         List<UserDTO> users = manageUser.getUsersByType(userTypeId);
         return new ResponseEntity<>(users, HttpStatus.OK);

@@ -197,7 +197,7 @@ public class ManageUser {
         return userRepository.save(user);
     }
 
-   /* @Transactional
+    @Transactional
     public void deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -220,7 +220,7 @@ public class ManageUser {
         }
     }
 
-    public List<UserDTO> getUsersByType(Long userTypeId) {
+  /*  public List<UserDTO> getUsersByType(Long userTypeId) {
         UserType userType = userTypeRepository.findById(userTypeId)
                 .orElseThrow(() -> new EntityNotFoundException("UserType not found with id: " + userTypeId));
         return userRepository.findByUserType(userType)
