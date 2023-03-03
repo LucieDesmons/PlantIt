@@ -13,7 +13,8 @@ public class PlantControllerFront{
 
     @GetMapping(value = "/show_plant")
     public PlantDTO new_plant(PlantDTO plante) {
-        plante.setUserDTO(1); //nécessite de récupérer l'ID utilisateur runtime
+        UserDTO user;   //récupère l'ID de l'utilisateur connecté
+        plante.setUserDTO(user);
         return plante;
     }
 
@@ -29,8 +30,13 @@ public class PlantControllerFront{
         List<String> liste;
 
         for (PlantReferenceDTO plantee : listeRefs) {
-            liste.add(plantee.family);
+            liste.add(plantee.getFamily());
         }
         return liste;
+    }
+
+    @GetMapping(value = "/delete_plant")
+    public Long delete_plant(PlantDTO plante){
+        return plante.getIdPlantDTO();
     }
 }

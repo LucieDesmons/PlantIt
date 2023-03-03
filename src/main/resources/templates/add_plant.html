@@ -14,42 +14,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="h-100 d-flex align-items-center justify-content-center">
-    <form action="#" th:action="@{/add_plant}" th:object="${plante}" method="post" style="width: 20rem;">
-      <div class="mb-3 form-check">
-        <label for="nom">Nom</label>
-        <input type="text" class="form-control" th:field="*{nom}" id="nom">
-        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
-      </div>
-      <select class="form-control form-control-lg" style="font-size: 100%;">
-        <option>Espèce</option>
-        <option th:text="${espece}" th:field="*{espece}"></option>
-      </select>
-      <div class="mb-3 form-check">
-        <label for="clarity">Eclairement (en lumen)</label>
-        <input type="text" class="form-control" th:field="*{clarity}" id="clarity">
-        <span th:if="${#fields.hasErrors('clarity')}" th:errors="*{clarity}"></span>
-      </div>
-      <div class="mb-3 form-check">
-        <label for="humidity">Taux d'humidité (en %)</label>
-        <input type="text" class="form-control" th:field="*{humidity}" id="humidity">
-        <span th:if="${#fields.hasErrors('humidity')}" th:errors="*{humidity}"></span>
-      </div>
-      <div class="mb-3 form-check">
-        <label for="placePlant">Emplacement (pièce)</label>
-        <input type="text" class="form-control" th:field="*{placePlant}" id="placePlant">
-        <span th:if="${#fields.hasErrors('placePlant')}" th:errors="*{placePlant}"></span>
-      </div>
-      <select class="form-control form-control-lg" style="font-size: 100%;">
-        <option>Type de pot</option>
-        <option th:text="${container}" th:field="*{container}"></option>
-      </select>
-      <div class="mb-3">
-        <label for="formFileMultiple" class="form-label">Photos</label>
-        <input class="form-control" type="file" th:field="*{photos}" id="formFileMultiple" multiple>
-      </div>
-      <input class="btn btn-primary" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
-    </form>
-  </div>
+    <div class="h-100 mt-5 d-flex align-items-center justify-content-center">
+      <form action="#" th:action="@{/add_plant}" th:object="${plante}" method="post" style="width: 20rem;">
+        <div class="mb-3 form-check">
+          <label for="nom">Nom</label>
+          <input type="text" class="form-control" th:field="*{nom}" id="nom">
+          <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+        </div>
+        <select class="form-control form-control-lg" style="font-size: 100%;">
+          <option>Espèce</option>
+          <option th:text="${espece}" th:field="*{espece}"></option>
+        </select>
+        <div class="mb-3 form-check">
+          <label for="clarity">Eclairement (en lumen)</label>
+          <input type="text" class="form-control" th:field="*{clarity}" id="clarity">
+          <span th:if="${#fields.hasErrors('clarity')}" th:errors="*{clarity}"></span>
+        </div>
+        <div class="mb-3 form-check">
+          <label for="humidity">Taux d'humidité (en %)</label>
+          <input type="text" class="form-control" th:field="*{humidity}" id="humidity">
+          <span th:if="${#fields.hasErrors('humidity')}" th:errors="*{humidity}"></span>
+        </div>
+        <div class="mb-3 form-check">
+          <label for="placePlant">Emplacement (pièce)</label>
+          <input type="text" class="form-control" th:field="*{placePlant}" id="placePlant">
+          <span th:if="${#fields.hasErrors('placePlant')}" th:errors="*{placePlant}"></span>
+        </div>
+        <select class="form-control form-control-lg" style="font-size: 100%;">
+          <option>Type de pot</option>
+          <option th:text="${container}" th:field="*{container}"></option>
+        </select>
+        <div class="mb-3">
+          <label for="formFileMultiple" class="form-label">Photos</label>
+          <input class="form-control" type="file" th:field="*{photos}" id="formFileMultiple" multiple>
+        </div>
+        <input class="btn btn-primary align-slef-center" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
+      </form>
+    </div>
   </body>
 </html>
