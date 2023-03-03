@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +20,12 @@ public class PlantControllerFront{
     private PlantController back;
     private PlantReferenceController backRef;
 
-    @PostMapping(value = "/show_plant")
-    public PlantDTO new_plant(Model model) {
-        UserDTO user = new UserDTO();   //récupère l'ID de l'utilisateur connecté
-        //model.addAttribute("plant", new PlantDTO());
-        PlantDTO plante = new PlantDTO();
-        plante.setUserDTO(user);
-        return plante;
+    @PostMapping(value = "/new_plant")
+    public String new_plant(@ModelAttribute("plantReferenceDTO") PlantDTO plantDTO, BindingResult result, Model model) {
+        model.addAttribute("plantDTO", plantDTO);
+        PlantController.getById(plantDTO);
+
+        return "new_plant";
     }
 
     @GetMapping(value = "/get_plant")
