@@ -32,7 +32,7 @@ public class PlantReferenceFrontController {
 
         PlantReferenceDTO createdPlantReference = plantReferenceController.createPlant(plantReferenceDTO).getBody();
 
-        String redirect = String.format("redirect:showPlantReference/%s", createdPlantReference.getIdPlantReference());
+        String redirect = String.format("redirect:plantReference/showPlantReference/%s", createdPlantReference.getIdPlantReference());
 
         return redirect;
     }

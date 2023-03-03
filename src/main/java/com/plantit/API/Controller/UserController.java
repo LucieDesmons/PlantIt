@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customers")
-@Api(value = "UserController", tags = {"User Management"})
+@Api(value = "UserFrontController", tags = {"User Management"})
 public class UserController {
 
     private final ManageUser manageUser;
