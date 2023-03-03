@@ -58,25 +58,25 @@ public class AuthenticationService {
 //                .build();
 //    }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        User user = personneRepository.findByEmailIgnoreCase(request.getEmail()).orElseThrow();
-        if (new BCryptPasswordEncoder().matches(request.getPassword(), user.getPassword()) && user.isEnabled()) {
-            jwtToken = null;//jwtService.generateToken(user);
-            currentUser = user;
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .idUser(currentUser.getIdUser().intValue())
-                    .role(currentUser.getUserType().getIdUserType().intValue())
-                    .build();
-        }
-        return null;
-    }
+//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        request.getEmail(),
+//                        request.getPassword()
+//                )
+//        );
+//        User user = personneRepository.findByLogin(request.getEmail()).orElseThrow();
+//        if (new BCryptPasswordEncoder().matches(request.getPassword(), user.getPassword()) && user.isEnabled()) {
+//            jwtToken = null;//jwtService.generateToken(user);
+//            currentUser = user;
+//            return AuthenticationResponse.builder()
+//                    .token(jwtToken)
+//                    .idUser(currentUser.getIdUser().intValue())
+//                    .role(currentUser.getUserType().getIdUserType().intValue())
+//                    .build();
+//        }
+//        return null;
+//    }
 
     public void disconnect(User portalUser) {
         CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS).execute(() -> {

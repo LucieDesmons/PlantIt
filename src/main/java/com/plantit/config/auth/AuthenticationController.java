@@ -36,18 +36,18 @@ public class AuthenticationController {
 //        }
 //    }
 
-    @PostMapping("/authenticate")
-    @Operation(summary = "permet à un utilisateur de se connecter")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request) {
-        try {
-            return new ResponseEntity<>(service.authenticate(request), HttpStatus.OK);
-        } catch (final HttpClientErrorException e) {
-            System.err.println(e.getStatusCode());
-            System.err.println(e.getResponseBodyAsString());
-            return new ResponseEntity<>(
-                    e.getStatusCode());
-        }
-    }
+//    @PostMapping("/authenticate")
+//    @Operation(summary = "permet à un utilisateur de se connecter")
+//    public ResponseEntity<AuthenticationResponse> authenticate(
+//            @RequestBody AuthenticationRequest request) {
+//        try {
+//            return new ResponseEntity<>(service.authenticate(request), HttpStatus.OK);
+//        } catch (final HttpClientErrorException e) {
+//            System.err.println(e.getStatusCode());
+//            System.err.println(e.getResponseBodyAsString());
+//            return new ResponseEntity<>(
+//                    e.getStatusCode());
+//        }
+//    }
 
 }

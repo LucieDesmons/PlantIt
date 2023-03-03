@@ -19,20 +19,20 @@ public class ApplicationConfig {
 
   private final UserRepository userRepository;
 
-  @Bean
-  public UserDetailsService userDetailsService() {
-    return username -> userRepository.findByEmailIgnoreCase(username)
-            //getByEmail(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-  }
+//  @Bean
+//  public UserDetailsService userDetailsService() {
+//    return username -> userRepository.findByEmailIgnoreCase(username)
+//            //getByEmail(username)
+//            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//  }
 
-  @Bean
-  public AuthenticationProvider authenticationProvider() {
-    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userDetailsService());
-    authProvider.setPasswordEncoder(passwordEncoder());
-    return authProvider;
-  }
+//  @Bean
+//  public AuthenticationProvider authenticationProvider() {
+//    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//    authProvider.setUserDetailsService(userDetailsService());
+//    authProvider.setPasswordEncoder(passwordEncoder());
+//    return authProvider;
+//  }
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

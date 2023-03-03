@@ -30,10 +30,11 @@ public class PlantDTO {
 
     /***** GETTER & SETTER *****/
 
-    @JsonProperty(value = "idUser", access = JsonProperty.Access.WRITE_ONLY)
-    public void SetUserById(Long userId){
+    @JsonProperty(value = "idUser", access = JsonProperty.Access.READ_WRITE)
+    public void setUserId(Long userId){
         user = UserDTO.fromId(userId);
     }
+
 
     /***** CONSTRUCTOR *****/
 
