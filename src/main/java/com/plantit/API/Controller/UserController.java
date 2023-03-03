@@ -4,8 +4,6 @@ import com.plantit.BLL.ManageUser;
 import com.plantit.DATA.dal.entities.User;
 import com.plantit.DATA.dal.repositories.UserRepository;
 import com.plantit.DATA.dto.UserDTO;
-import com.plantit.DATA.dto.service.UserService;
-import com.plantit.DATA.dto.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
