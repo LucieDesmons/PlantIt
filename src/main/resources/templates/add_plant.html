@@ -17,9 +17,9 @@
     <div class="h-100 mt-5 d-flex align-items-center justify-content-center">
       <form action="#" th:action="@{/add_plant}" th:object="${plante}" method="post" style="width: 20rem;">
         <div class="mb-3 ps-0 form-check">
-          <label for="nom">Nom</label>
-          <input type="text" class="form-control" th:field="*{nom}" id="nom">
-          <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+          <label for="name">Nom</label>
+          <input type="text" class="form-control" th:field="*{name}" id="nom">
+          <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </div>
         <select class="form-control form-control-lg mb-2" style="font-size: 100%;">
           <option>Espèce</option>
@@ -44,11 +44,11 @@
           <option>Type de pot</option>
           <option th:text="${container}" th:field="*{container}"></option>
         </select>
-        <div class="mb-3">
+        <!--<div class="mb-3">
           <label for="formFileMultiple" class="form-label">Photos</label>
           <input class="form-control" type="file" th:field="*{photos}" id="formFileMultiple" multiple>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
+        </div>-->
+        <input class="btn btn-primary mt-2" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
       </form>
     </div>
   </body>
