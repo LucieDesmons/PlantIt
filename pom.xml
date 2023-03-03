@@ -78,6 +78,8 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+            <!-- Temporary explicit version to fix Thymeleaf bug -->
+            <version>3.1.1.RELEASE</version>
         </dependency>
         <!--        SWAGGER        -->
         <dependency>
@@ -90,6 +92,8 @@
             <artifactId>swagger-annotations</artifactId>
             <version>1.5.20</version>
         </dependency>
+
+        <!--    IDK    -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -107,7 +111,22 @@
             <artifactId>modelmapper</artifactId>
             <version>2.4.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.1</version>
+        </dependency>
 
 
     </dependencies>
@@ -120,5 +139,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

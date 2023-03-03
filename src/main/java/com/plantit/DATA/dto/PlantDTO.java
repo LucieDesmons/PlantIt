@@ -3,11 +3,8 @@ package com.plantit.DATA.dto;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
-import javax.swing.text.View;
 import java.util.Set;
 
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,8 +20,9 @@ public class PlantDTO {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUser")
     @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("idUser")
+    @JsonProperty(value = "idUser", access = JsonProperty.Access.READ_ONLY)
     private UserDTO user;
+
     private PlantReferenceDTO plantReference;
     private Set<PictureDTO> pictureCollection;
     private Set<ConversationDTO> conversationCollection;
@@ -32,10 +30,11 @@ public class PlantDTO {
 
     /***** GETTER & SETTER *****/
 
-    @JsonProperty("idUser")
+    @JsonProperty(value = "idUser", access = JsonProperty.Access.READ_WRITE)
     public void setUserId(Long userId){
         user = UserDTO.fromId(userId);
     }
+
 
     /***** CONSTRUCTOR *****/
 

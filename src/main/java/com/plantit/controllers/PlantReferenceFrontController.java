@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PlantReferenceFrontController {
@@ -31,14 +32,11 @@ public class PlantReferenceFrontController {
 
         PlantReferenceDTO test = plantReferenceController.createPlant(plantReferenceDTO).getBody();
 
-//        return "createPlantReferenceForm";
-//        return new ModelAndView("createPlantReferenceForm");
-        return "redirect:/showData";
-
+        return "showPlantReference";
     }
 
 //    @GetMapping("/showPlantReference/{id}")
-//    public String showPlantReference()
+//    public String showPlantReference(Model model, RequestParam)
 
 
 

@@ -37,33 +37,21 @@ public class ManagePlant {
     }
 
     public PlantDTO createPlant(PlantDTO plantDTO) {
-//        Plant plant = new Plant();
-//
-//        // TODO: 01/03/2023 setPlantReference dans createPlant
-////        if (plantDTO.getPlantReferenceDTO() != null){
-////            plant.setPlantReference(new PlantReference(plantDTO.getPlantReferenceDTO()));
-////        }
-//
-//        if (plantDTO.getUserDTO() != null){
-//            // TODO: 01/03/2023 en theorie, on devrai avoir l'utilisateur connecté à l'app dans plantDTO
-//            Optional<User> currentUser = userRepository.findById(plantDTO.getUserDTO().getIdUserDTO());
-//            if (currentUser.isPresent())
-//                plant.setUser(currentUser.get());
-//        }
-//        // TODO: 01/03/2023 conversation
-//        // TODO: 01/03/2023 images
-////        if (plantDTO.getConversationCollectionDTO() != null)
-////            plant.setConversationCollection();
-//        plant.setPlacePlant(plantDTO.getPlacePlant());
-//        plant.setContainer(plantDTO.getContainer());
-//        plant.setClarity(plantDTO.getClarity());
-//        plant.setHumidity(plantDTO.getHumidity());
+
+        // TODO: 01/03/2023 setPlantReference dans createPlant
+
+        // TODO: 01/03/2023 en théorie, on devrai avoir l'utilisateur connecté à l'app dans plantDTO
+
+        // TODO: 01/03/2023 conversation
+
+        // TODO: 01/03/2023 images
+
 
         Plant plant = plantConverter.convertDtoToEntity(plantDTO);
 
         Optional<User> currentUser = userRepository.findById(plantDTO.getUser().getIdUser());
         if (currentUser.isPresent())
-            plant.setUser(currentUser.get());
+            plant.setUserId(plantDTO.getUser().getIdUser());
 
         plant = plantRepository.save(plant);
 
@@ -92,7 +80,7 @@ public class ManagePlant {
         if (existingPlant.isPresent()){
             plantRepository.delete(existingPlant.get());
         }
-        else throw new NotFoundException("La plant que vous essayez de supprimer n'éxiste pas.");;
+        else throw new NotFoundException("La plante que vous essayez de supprimer n'éxiste pas.");;
     }
 
     public List<PlantDTO> getPlantFromIdUser(long idUser){
