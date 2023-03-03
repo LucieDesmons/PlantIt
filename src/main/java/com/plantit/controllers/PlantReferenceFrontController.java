@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
+@RequestMapping("/plantReference")
 public class PlantReferenceFrontController {
 
     private final PlantReferenceController plantReferenceController;
@@ -42,6 +45,17 @@ public class PlantReferenceFrontController {
         model.addAttribute("plantReferenceDTO", plantReferenceDTO);
 
         return "showPlantReference";
+    }
+
+
+    @GetMapping("/showAllPlantReference")
+    public String showPlantReference(Model model) {
+
+        List<PlantReferenceDTO> plantReferenceDTOs = plantReferenceController.listAllPlants().getBody();
+
+        model.addAttribute("listPlantReference", plantReferenceDTOs);
+
+        return "showAllPlantReference";
     }
 
 

@@ -21,7 +21,7 @@ public class PlantControllerFront{
     @GetMapping(value = "/show_plant")
     public PlantDTO new_plant(PlantDTO plante) {
         UserDTO user = new UserDTO();   //récupère l'ID de l'utilisateur connecté
-        plante.setUserDTO(user);
+        plante.setUser(user);
         return plante;
     }
 
@@ -44,6 +44,6 @@ public class PlantControllerFront{
 
     @GetMapping(value = "/delete_plant")
     public Long delete_plant(PlantDTO plante){
-        return plante.getIdPlantDTO();
+        return plante.getIdPlant();
     }
 }
