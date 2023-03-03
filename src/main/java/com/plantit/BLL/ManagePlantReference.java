@@ -31,7 +31,11 @@ public class ManagePlantReference {
 
         plantReference = repository.save(plantReference);
 
-        return plantReferenceConverter.convertEntityToDTO(plantReference);
+        plantReferenceDTO =  plantReferenceConverter.convertEntityToDTO(plantReference);
+
+
+
+        return plantReferenceDTO;
     }
 
     public List<PlantReferenceDTO> getPlantReferences() {

@@ -29,10 +29,11 @@ public class PlantReferenceFrontController {
 
         model.addAttribute("plantReferenceDTO", plantReferenceDTO);
 
-        plantReferenceController.createPlant(plantReferenceDTO);
+        PlantReferenceDTO test = plantReferenceController.createPlant(plantReferenceDTO).getBody();
 
-        return "createPlantReferenceForm";
+//        return "createPlantReferenceForm";
 //        return new ModelAndView("createPlantReferenceForm");
+        return "redirect:/showData";
 
     }
 
