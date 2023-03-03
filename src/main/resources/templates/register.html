@@ -8,34 +8,34 @@
         <div class="h-100 mt-5 d-flex align-items-center justify-content-center">
             <form action="#" th:action="@{/add_user}" th:object="${user}" method="post" style="width: 20rem;">
                 <div class="mb-3 ps-0 form-check">
-                <label for="firstName">Prénom</label>
-                <input type="text" class="form-control" th:field="*{firstName}" id="prenom">
-                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                    <label for="firstName">Prénom</label>
+                    <input type="text" class="form-control" th:field="*{firstName}" id="prenom">
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                <label for="name">Nom</label>
-                <input type="text" class="form-control" th:field="*{name}" id="name">
-                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" th:field="*{name}" id="name">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" th:field="*{email}" id="email">
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" th:field="*{email}" id="email">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                <label for="phone">Téléphone</label>
-                <input type="text" class="form-control" th:field="*{phone}" id="phone">
-                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                    <label for="phone">Téléphone</label>
+                    <input type="text" class="form-control" th:field="*{phone}" id="phone">
+                    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                <label for="login">Pseudo</label>
-                <input type="text" class="form-control" th:field="*{login}" id="login">
-                <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                    <label for="login">Pseudo</label>
+                    <input type="text" class="form-control" th:field="*{login}" id="login">
+                    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                <label for="password">Mot de passe</label>
-                <input type="text" class="form-control" th:field="*{password}" id="password">
-                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    <label for="password">Mot de passe</label>
+                    <input type="text" class="form-control" th:field="*{password}" id="password">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
                 <input class="btn btn-primary mt-2" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
             </form>
