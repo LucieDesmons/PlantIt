@@ -9,8 +9,16 @@
         crossorigin="anonymous">
 </head>
 <body>
-    <h></h>
-    <p th:text="${plantReferenceDTO.getName()}"></p>
+    <h1>Référence de plante : <span th:text="${plantReferenceDTO.idPlantReference}"></span></h1>
+
+    <p>Nom : <span th:text="${plantReferenceDTO.name}"></span></p>
+    <p>Famille : <span th:text="${plantReferenceDTO.family}"></span></p>
+    <p>Taille : <span th:text="${plantReferenceDTO.size}"></span></p>
+    <p>Source de nourriture : <span th:text="${plantReferenceDTO.foodSource}"></span></p>
+    <p>Moyen de reproduction : <span th:text="${plantReferenceDTO.reproduction}"></span></p>
+    <p>Esperence de vie : <span th:text="${plantReferenceDTO.lifetime}"></span></p>
+    <p>Emplacement : <span th:text="${plantReferenceDTO.placeLife}"></span></p>
+
 
 </body>
 </html>
