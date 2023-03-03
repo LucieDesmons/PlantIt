@@ -5,10 +5,7 @@ import com.plantit.DATA.dto.PlantReferenceDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PlantReferenceFrontController {
@@ -30,13 +27,22 @@ public class PlantReferenceFrontController {
 
         model.addAttribute("plantReferenceDTO", plantReferenceDTO);
 
-        PlantReferenceDTO test = plantReferenceController.createPlant(plantReferenceDTO).getBody();
+        PlantReferenceDTO createdPlantReference = plantReferenceController.createPlant(plantReferenceDTO).getBody();
+
+        String redirect = String.format("redirect:showPlantReference/%s", createdPlantReference.getIdPlantReference());
+
+        return redirect;
+    }
+
+    @GetMapping("/showPlantReference/{id}")
+    public String showPlantReference(Model model, @PathVariable long id) {
+
+        PlantReferenceDTO plantReferenceDTO = plantReferenceController.getById(id).getBody();
+
+        model.addAttribute("plantReferenceDTO", plantReferenceDTO);
 
         return "showPlantReference";
     }
-
-//    @GetMapping("/showPlantReference/{id}")
-//    public String showPlantReference(Model model, RequestParam)
 
 
 

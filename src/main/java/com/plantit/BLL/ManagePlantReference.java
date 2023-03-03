@@ -33,6 +33,7 @@ public class ManagePlantReference {
 
         plantReferenceDTO =  plantReferenceConverter.convertEntityToDTO(plantReference);
 
+        plantReferenceDTO.setIdPlantReference(plantReference.getIdPlantReference());
 
 
         return plantReferenceDTO;
