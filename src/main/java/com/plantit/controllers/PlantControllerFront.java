@@ -13,7 +13,7 @@ public class PlantControllerFront{
 
     @GetMapping(value = "/show_plant")
     public PlantDTO new_plant(PlantDTO plante) {
-        plante.setUserDTO(null); //nécessite de récupérer l'ID utilisateur runtime
+        plante.setUserDTO(1); //nécessite de récupérer l'ID utilisateur runtime
         return plante;
     }
 

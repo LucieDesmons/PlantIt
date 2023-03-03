@@ -2,21 +2,28 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>Création de profil</title>
+    <title>Saisie de plante</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script>
+      function app_plant(content){
+        var p = new PlantController;
+        p.add_plant();
+        console.log("fonction appelée : \n", content)
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+    <div class="h-100 d-flex align-items-center justify-content-center">
     <form action="#" th:action="@{/add_plant}" th:object="${plante}" method="post" style="width: 20rem;">
       <div class="mb-3 form-check">
         <label for="nom">Nom</label>
         <input type="text" class="form-control" th:field="*{nom}" id="nom">
         <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
       </div>
-      <select class="form-control form-control-lg">
+      <select class="form-control form-control-lg" style="font-size: 100%;">
         <option>Espèce</option>
-        <input type="text" class="form-control" th:field="*{espece}" id="espece">
-        <option th:text="${espece}"></option>
+        <option th:text="${espece}" th:field="*{espece}"></option>
       </select>
       <div class="mb-3 form-check">
         <label for="clarity">Eclairement (en lumen)</label>
@@ -33,21 +40,16 @@
         <input type="text" class="form-control" th:field="*{placePlant}" id="placePlant">
         <span th:if="${#fields.hasErrors('placePlant')}" th:errors="*{placePlant}"></span>
       </div>
-      <select class="form-control form-control-lg">
+      <select class="form-control form-control-lg" style="font-size: 100%;">
         <option>Type de pot</option>
-        <input type="text" class="form-control" th:field="*{container}" id="container">
-        <option th:text="${container}"></option>
+        <option th:text="${container}" th:field="*{container}"></option>
       </select>
       <div class="mb-3">
         <label for="formFileMultiple" class="form-label">Photos</label>
-        <input type="text" class="form-control" th:field="*{photos}" id="photos">
-        <input class="form-control" type="file" id="formFileMultiple" multiple>
+        <input class="form-control" type="file" th:field="*{photos}" id="formFileMultiple" multiple>
       </div>
-      <!--<div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="garde_co">
-        <label class="form-check-label" for="garde_co">Me garder connecté</label>
-      </div>-->
-      <input class="btn btn-primary" type="submit" value="add_plant" style="background-color: #81be43; border: none;">
+      <input class="btn btn-primary" type="submit" value="Ajouter" th:onclick="add_plant()" style="background-color: #81be43; border: none;">
     </form>
+  </div>
   </body>
 </html>
