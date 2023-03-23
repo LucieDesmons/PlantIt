@@ -2,8 +2,16 @@ package com.plantit.DATA.dal.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "address")
 public class Address {
 
@@ -30,62 +38,6 @@ public class Address {
 
     /***** GETTER & SETTER *****/
 
-    @JsonProperty("id_address")
-    public Long getIdAddress() {
-        return idAddress;
-    }
-
-    public void setIdAddress(Long idAddress) {
-        this.idAddress = idAddress;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
-    }
-
-    public String getAdditionalAddress() {
-        return additionalAddress;
-    }
-
-    public void setAdditionalAddress(String additionalAddress) {
-        this.additionalAddress = additionalAddress;
-    }
-
-    public String getTown() {
-        return town;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
-
-    /***** CONSTRUCTOR *****/
-
-    public Address() {
-
-    }
-
     public Address(int number, int postalCode, String way, String additionalAddress, String town) {
         super();
         this.number = number;
@@ -94,7 +46,6 @@ public class Address {
         this.additionalAddress = additionalAddress;
         this.town = town;
     }
-
 
     /***** TO STRING *****/
 

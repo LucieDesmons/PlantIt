@@ -2,10 +2,18 @@ package com.plantit.DATA.dal.entities;
 
 import com.plantit.DATA.dto.ConversationDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "conversation")
 public class Conversation {
 
@@ -31,66 +39,13 @@ public class Conversation {
     @ManyToMany(mappedBy = "conversationCollection")
     private Set<Plant> plantCollection;
 
-
-    /***** GETTER & SETTER *****/
-
-    public Long getIdConversation() {
-        return idConversation;
-    }
-
-    public void setIdConversation(Long idConversation) {
-        this.idConversation = idConversation;
-    }
-
-    public User getUser1() {
-        return user1;
-    }
-
-    public void setUser1(User user1) {
-        this.user1 = user1;
-    }
-
-    public User getUser2() {
-        return user2;
-    }
-
-    public void setUser2(User user2) {
-        this.user2 = user2;
-    }
-
-    public Set<Message> getMessageCollection() {
-        return messageCollection;
-    }
-
-    public void setMessageCollection(Set<Message> messageCollection) {
-        this.messageCollection = messageCollection;
-    }
-
-    public Set<Plant> getPlantCollection() {
-        return plantCollection;
-    }
-
-    public void setPlantCollection(Set<Plant> plantCollection) {
-        this.plantCollection = plantCollection;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public Conversation() {
-
-    }
 
     public Conversation(User user1, User user2) {
         super();
         this.user1 = user1;
         this.user2 = user2;
     }
-
-    public Conversation(ConversationDTO conversationDTO){
-        super();
-    }
-
 
     /***** TO STRING *****/
 

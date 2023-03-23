@@ -1,10 +1,18 @@
 package com.plantit.DATA.dal.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "manage")
 public class Manage {
 
@@ -28,54 +36,7 @@ public class Manage {
     private Date endDate;
 
 
-    /***** GETTER & SETTER *****/
-
-    public ManageKey getIdManage() {
-        return idManage;
-    }
-
-    public void setIdManage(ManageKey idManage) {
-        this.idManage = idManage;
-    }
-
-    public User getIdUserCustomer() {
-        return idUserCustomer;
-    }
-
-    public void setIdUserCustomer(User idUserCustomer) {
-        this.idUserCustomer = idUserCustomer;
-    }
-
-    public User getIdUserBotanist() {
-        return idUserBotanist;
-    }
-
-    public void setIdUserBotanist(User idUserBotanist) {
-        this.idUserBotanist = idUserBotanist;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public Manage() {
-
-    }
 
     public Manage(User idUserCustomer, User idUserBotanist, Date startDate, Date endDate) {
         super();

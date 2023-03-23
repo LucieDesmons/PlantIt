@@ -1,11 +1,19 @@
 package com.plantit.DATA.dal.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "picture_reference")
 public class PictureReference {
 
@@ -29,46 +37,8 @@ public class PictureReference {
     private Set<PlantReference> plantReferenceCollection;
 
 
-    /***** GETTER & SETTER *****/
-
-    public Long getIdPictureReference() {
-        return idPictureReference;
-    }
-
-    public void setIdPictureReference(Long idPictureReference) {
-        this.idPictureReference = idPictureReference;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
-    }
-
-    public Date getModificationDate() {
-        return modificationDate;
-    }
-
-    public void setModificationDate(Date modificationDate) {
-        this.modificationDate = modificationDate;
-    }
-
-    public Set<PlantReference> getPlantReferenceCollection() {
-        return plantReferenceCollection;
-    }
-
-    public void setPlantReferenceCollection(Set<PlantReference> plantReferenceCollection) {
-        this.plantReferenceCollection = plantReferenceCollection;
-    }
-
 
     /***** CONSTRUCTOR *****/
-
-    public PictureReference() {
-
-    }
 
     public PictureReference(String way, Date modificationDate) {
         super();

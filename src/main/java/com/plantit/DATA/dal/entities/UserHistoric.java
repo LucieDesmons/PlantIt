@@ -3,10 +3,18 @@ package com.plantit.DATA.dal.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_historic")
 public class UserHistoric {
 
@@ -27,47 +35,7 @@ public class UserHistoric {
     private User user;
 
 
-    /***** GETTER & SETTER *****/
-
-    @JsonProperty("idUserHistoric")
-    public Long getIdUserHistoric() {
-        return idUserHistoric;
-    }
-
-    public void setIdUserHistoric(Long idUserHistoric) {
-        this.idUserHistoric = idUserHistoric;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public UserHistoric() {
-
-    }
 
     public UserHistoric(Date startDate, Date endDate, User user) {
         super();

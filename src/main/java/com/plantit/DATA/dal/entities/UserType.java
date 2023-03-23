@@ -6,10 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.plantit.DATA.dto.AddressDTO;
 import com.plantit.DATA.dto.UserTypeDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user_type")
 public class UserType {
 
@@ -25,8 +33,6 @@ public class UserType {
     /***** COLLECTION *****/
 
     @OneToMany(mappedBy="userType")
-    @JsonIgnoreProperties("userType")
-    @JsonIgnore
     private Set<User> userCollection;
 
 
@@ -41,34 +47,8 @@ public class UserType {
         this.idUserType = idUserType;
     }
 
-    public static UserType fromId(Long idUserType) {
-        UserType userType = new UserType();
-        userType.idUserType = idUserType;
-        return userType;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public Set<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Set<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
 
     /***** CONSTRUCTOR *****/
-
-    public UserType() {
-
-    }
 
     public UserType(String label) {
         super();

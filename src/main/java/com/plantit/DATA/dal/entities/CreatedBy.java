@@ -1,10 +1,18 @@
 package com.plantit.DATA.dal.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "created_by")
 public class CreatedBy {
 
@@ -28,54 +36,7 @@ public class CreatedBy {
     private User user;
 
 
-    /***** GETTER & SETTER *****/
-
-    public CreatedByKey getId() {
-        return id;
-    }
-
-    public void setId(CreatedByKey id) {
-        this.id = id;
-    }
-
-    public PlantReference getPlantReference() {
-        return plantReference;
-    }
-
-    public void setPlantReference(PlantReference plantReference) {
-        this.plantReference = plantReference;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(int orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public CreatedBy() {
-
-    }
 
     public CreatedBy(PlantReference PlantReference, User user, int orderNum, Date updateDate) {
         super();

@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/plantReference/CreateForm}" th:object="${plantReferenceDTO}" method="post">
+<form action="#" th:action="@{/CreateForm}" th:object="${plantReferenceDTO}" method="post" enctype="multipart/form-data">
 
     <div class="mb-3">
         <label for="name" class="form-label">Nom de la plante</label>
@@ -53,6 +53,12 @@
         <input type="text" th:field="*{placeLife}" class="form-control" id="placeLife" placeholder="placeLife">
         <span th:if="${#fields.hasErrors('placeLife')}" th:errors="*{placeLife}"></span>
     </div>
+
+<!--    <div class="mb-3">-->
+<!--        <label for="pictureReferenceCollection" class="form-label">Lieu de vie</label>-->
+<!--        <input type="text" th:field="*{pictureReferenceCollection}" class="form-control" id="pictureReferenceCollection" placeholder="pictureReferenceCollection">-->
+<!--        <span th:if="${#fields.hasErrors('placeLife')}" th:errors="*{placeLife}"></span>-->
+<!--    </div>-->
 
     <button type="submit" value="createPlantReference" class="btn btn-success">Create plant reference</button>
 </form>

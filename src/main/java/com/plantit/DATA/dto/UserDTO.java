@@ -1,9 +1,6 @@
 package com.plantit.DATA.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.plantit.DATA.dal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +14,10 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idUser"
+)
 public class UserDTO {
 
     public static final Long ADMIN_ID = 1L;
@@ -35,7 +36,6 @@ public class UserDTO {
     private String hobbies;
     private AddressDTO address;
     private UserDTO godFather;
-    @JsonIgnore
     private UserTypeDTO userType;
     private Set<ConversationDTO> conversationCollection;
     private Set<UserHistoricDTO> userHistoricCollection;
@@ -44,11 +44,5 @@ public class UserDTO {
     private Set<MaintenanceDTO> maintenanceCollection;
     private Set<CreatedByDTO> createdByCollection;
     private Set<PlantDTO> plantCollection;
-
-    public static UserDTO fromId(Long idUser) {
-        UserDTO user = new UserDTO();
-        user.idUser = idUser;
-        return user;
-    }
 
 }

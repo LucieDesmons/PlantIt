@@ -1,4 +1,4 @@
-package com.plantit.front.controllers;
+package com.plantit.controllers;
 
 import com.plantit.API.Controller.PlantController;
 import com.plantit.API.Controller.UserController;
@@ -58,7 +58,7 @@ public class UserFrontController {
 
         model.addAttribute("user", userDTO);
 
-        return "userProfile";
+        return "profil";
     }
 
     @GetMapping("/user/{id}/plants")

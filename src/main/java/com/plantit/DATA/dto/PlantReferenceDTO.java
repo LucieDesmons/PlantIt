@@ -1,5 +1,8 @@
 package com.plantit.DATA.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +14,10 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idPlantReference"
+)
 public class PlantReferenceDTO {
 
     private Long idPlantReference;
@@ -22,6 +29,7 @@ public class PlantReferenceDTO {
     private int lifetime;
     private String placeLife;
     private Set<CreatedByDTO> createdByCollection;
+    @JsonIgnore
     private Set<PlantDTO> plantCollection;
     private Set<PictureReferenceDTO> pictureReferenceCollection;
 

@@ -2,11 +2,19 @@ package com.plantit.DATA.dal.entities;
 
 import com.plantit.DATA.dto.PictureDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "picture")
 public class Picture {
 
@@ -31,54 +39,7 @@ public class Picture {
     private Set<Plant> plantCollection;
 
 
-    /***** GETTER & SETTER *****/
-
-    public Long getIdPicture() {
-        return idPicture;
-    }
-
-    public void setIdPicture(Long idPicture) {
-        this.idPicture = idPicture;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public Set<Maintenance> getMaintenanceCollection() {
-        return maintenanceCollection;
-    }
-    public Set<Plant> getPlantCollection() {
-        return plantCollection;
-    }
-
-    public void setPlantCollection(Set<Plant> plantCollection) {
-        this.plantCollection = plantCollection;
-    }
-
-
-    public void setMaintenanceCollection(Set<Maintenance> maintenanceCollection) {
-        this.maintenanceCollection = maintenanceCollection;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public Picture() {
-
-    }
 
     public Picture(String way, Date updateDate) {
         super();

@@ -36,8 +36,6 @@ public class PlantReferenceController {
             @ApiResponse(code = 400, message = "Invalid input data")
     })
     public ResponseEntity<PlantReferenceDTO> createPlant(@RequestBody PlantReferenceDTO plantReferenceDTO){
-        //Plant plantReference = managePlantReference.createPlant(plantDTO);
-        //return new ResponseEntity<>(plantReference, HttpStatus.OK);
         PlantReferenceDTO createdPlant = managePlantReference.createPlantReference(plantReferenceDTO);
         return new ResponseEntity<>(createdPlant, HttpStatus.CREATED);
     }

@@ -4,10 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "password_historic")
 public class PasswordHistoric {
 
@@ -28,47 +36,7 @@ public class PasswordHistoric {
     private User user;
 
 
-    /***** GETTER & SETTER *****/
-
-    @JsonProperty("idHistoric")
-    public Long getIdHistoric() {
-        return idHistoric;
-    }
-
-    public void setIdHistoric(Long idHistoric) {
-        this.idHistoric = idHistoric;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public PasswordHistoric() {
-
-    }
 
     public PasswordHistoric(String password, Date updateDate, User user) {
         super();

@@ -56,9 +56,6 @@ public class PlantReference {
     private Set<PictureReference> pictureReferenceCollection;
 
 
-    /***** GETTER & SETTER *****/
-
-
     /***** CONSTRUCTOR *****/
 
     public PlantReference(String family, int size, String foodSource, String reproduction, int lifetime, String placeLife) {

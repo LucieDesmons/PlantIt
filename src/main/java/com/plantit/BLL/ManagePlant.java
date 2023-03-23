@@ -50,8 +50,8 @@ public class ManagePlant {
         Plant plant = plantConverter.convertDtoToEntity(plantDTO);
 
         Optional<User> currentUser = userRepository.findById(plantDTO.getUser().getIdUser());
-        if (currentUser.isPresent())
-            plant.setUserId(plantDTO.getUser().getIdUser());
+//        if (currentUser.isPresent())
+//            plant.setUserId(plantDTO.getUser().getIdUser());
 
         plant = plantRepository.save(plant);
 

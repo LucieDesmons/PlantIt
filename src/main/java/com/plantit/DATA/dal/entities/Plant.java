@@ -39,9 +39,6 @@ public class Plant {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_user", nullable=false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUser")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("idUser")
     private User user;
 
     @ManyToOne
@@ -64,21 +61,12 @@ public class Plant {
     )
     private Set<Conversation> conversationCollection;
 
-
-    /***** GETTER & SETTER *****/
-
-    @JsonProperty("idUser")
-    public void setUserId(Long userId){
-        user = User.fromId(userId);
-    }
-
-
     /***** TO STRING *****/
 
     @Override
     public String toString() {
-        return "Plant [placePlant=" + placePlant + ", container=" + container + ", humidity=" + humidity +
-                "clarity=" + clarity + ", idUser=" + user.getIdUser() + ", idPlantReference=" + plantReference.getIdPlantReference() +"]";
+        return "Plant [placePlant=" + placePlant + ", container=" + container + ", humidity=" + humidity;// +
+                //"clarity=" + clarity + ", idUser=" + this.getUser().getIdUser() + ", idPlantReference=" + plantReference.getIdPlantReference() +"]";
     }
 
 }

@@ -1,11 +1,19 @@
 package com.plantit.DATA.dal.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "maintenance")
 public class Maintenance {
 
@@ -41,62 +49,7 @@ public class Maintenance {
     private Set<User> userCollection;
 
 
-    /***** GETTER & SETTER *****/
-
-    public Long getIdMaintenance() {
-        return idMaintenance;
-    }
-
-    public void setIdMaintenance(Long idMaintenance) {
-        this.idMaintenance = idMaintenance;
-    }
-
-    public Date getPredictedDate() {
-        return predictedDate;
-    }
-
-    public void setPredictedDate(Date predictedDate) {
-        this.predictedDate = predictedDate;
-    }
-
-    public Date getRealizedDate() {
-        return realizedDate;
-    }
-
-    public void setRealizedDate(Date realizedDate) {
-        this.realizedDate = realizedDate;
-    }
-
-    public String getReport() {
-        return report;
-    }
-
-    public void setReport(String report) {
-        this.report = report;
-    }
-
-    public Set<Picture> getPictureCollection() {
-        return pictureCollection;
-    }
-
-    public void setPictureCollection(Set<Picture> pictureCollection) {
-        this.pictureCollection = pictureCollection;
-    }
-
-    public Set<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Set<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
-
     /***** CONSTRUCTOR *****/
-
-    public Maintenance() {
-
-    }
 
     public Maintenance(Date predictedDate, Date realizedDate, String report) {
         super();
