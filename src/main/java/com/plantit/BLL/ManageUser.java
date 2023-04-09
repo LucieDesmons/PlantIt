@@ -6,8 +6,6 @@ import com.plantit.DATA.dal.repositories.*;
 import com.plantit.DATA.dto.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,11 +45,10 @@ public class ManageUser {
     public User createUser(UserDTO userDTO) {
 
         User user = new User();
-        user.setFirstName(userDTO.getFirstName());
-        user.setName(userDTO.getName());
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
         user.setPhone(userDTO.getPhone());
         user.setEmail(userDTO.getEmail());
-        user.setLogin(userDTO.getLogin());
         user.setPassword(userDTO.getPassword());
         user.setHobbies(userDTO.getHobbies());
 
@@ -152,7 +149,7 @@ public class ManageUser {
     }
 
     public UserDTO Login(String login, String password) {
-        Optional<User> user = userRepository.findByLogin(login);
+        Optional<User> user = userRepository.findByEmail(login);
 
         if (user.isPresent()) {
             if (user.get().getPassword().equals(password)) {
@@ -173,11 +170,10 @@ public class ManageUser {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
-        user.setFirstName(userDTO.getFirstName());
-        user.setName(userDTO.getName());
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
         user.setEmail(userDTO.getEmail());
-        user.setLogin(userDTO.getLogin());
         user.setPassword(userDTO.getPassword());
         user.setHobbies(userDTO.getHobbies());
 

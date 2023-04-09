@@ -8,14 +8,14 @@
         <div class="h-100 mt-5 d-flex align-items-center justify-content-center">
             <form action="#" th:action="@{/add_user}" th:object="${user}" method="post" style="width: 20rem;">
                 <div class="mb-3 ps-0 form-check">
-                    <label for="firstName">Prénom</label>
-                    <input type="text" class="form-control" th:field="*{firstName}" id="prenom">
-                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                    <label for="firstname">Prénom</label>
+                    <input type="text" class="form-control" th:field="*{firstname}" id="firstname">
+                    <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
-                    <label for="name">Nom</label>
-                    <input type="text" class="form-control" th:field="*{name}" id="name">
-                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    <label for="lastname">Nom</label>
+                    <input type="text" class="form-control" th:field="*{lastname}" id="lastname">
+                    <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
                 </div>
                 <div class="mb-3 ps-0 form-check">
                     <label for="email">Email</label>

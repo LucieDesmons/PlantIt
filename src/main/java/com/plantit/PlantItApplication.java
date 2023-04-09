@@ -7,7 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 //, exclude = SecurityAutoConfiguration.class
 
-@ComponentScan({"com.plantit.API.Controller",
+@ComponentScan({
+        "com.plantit.auth",
+        "com.plantit.config",
+        "com.plantit.API.Controller",
         "com.plantit.controllers",
         "com.plantit.DATA.dal.entities",
         "com.plantit.DATA.dal.repositories",

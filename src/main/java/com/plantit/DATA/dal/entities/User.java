@@ -1,43 +1,42 @@
 package com.plantit.DATA.dal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import com.plantit.DATA.dto.UserDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Long idUser;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "lastname")
+    private String lastname;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "firstname")
+    private String firstname;
 
     @Column(name = "phone")
     private String phone;
 
     @Column(name = "email")
     private String email;
-
-    @Column(name = "login")
-    private String login;
-
     @Column(name = "password")
     @JsonIgnore
     private String password;
@@ -62,7 +61,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_user_type")
     private UserType userType;
-
 
     /***** COLLECTION *****/
 
@@ -90,14 +88,13 @@ public class User {
 
     /***** CONSTRUCTOR *****/
 
-    public User(String name, String firstName, String phone, String email, String login, String password, String degree,
+    public User(String lastname, String firstname, String phone, String email, String password, String degree,
                 String specialization, String hobbies, User godFather, Address address, UserType userType) {
         super();
-        this.name = name;
-        this.firstName = firstName;
+        this.lastname = lastname;
+        this.firstname = firstname;
         this.phone = phone;
         this.email = email;
-        this.login = login;
         this.password = password;
         this.degree = degree;
         this.specialization = specialization;
@@ -114,11 +111,10 @@ public class User {
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
-                ", firstName='" + firstName + '\'' +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstname + '\'' +
+                ", name='" + lastname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", hobbies='" + hobbies + '\'' +
                 ", address=" + address +
@@ -135,4 +131,37 @@ public class User {
         return user;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority(this.getUserType().getLabel()));
+
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

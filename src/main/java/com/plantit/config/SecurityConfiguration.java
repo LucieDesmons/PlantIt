@@ -1,4 +1,4 @@
-package com.plantit.config.config;
+package com.plantit.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +14,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Profile("prod")
 public class SecurityConfiguration {
-
-    //private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+
 
     private static final String[] WHITELIST = {
             // -- swagger ui
@@ -27,32 +26,23 @@ public class SecurityConfiguration {
             "/swagger-resources/**",
             "/swagger-ui/**",
             "/error",
-            "/auth/",
+            "/api/auth/**",
     };
-//
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return web -> web.ignoring().requestMatchers("/v3/**", "/swagger-ui.html", "/swagger-ui/**");
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeHttpRequests(a -> a
-                        .requestMatchers(WHITELIST).anonymous()
-                        .requestMatchers("/**").hasAnyAuthority(
-                                "USER",
-                                "BOTANIST",
-                                "ADMIN",
-                                "MODERATOR"
-                        )
-                )
+                .authorizeHttpRequests()
+                .requestMatchers(WHITELIST).permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(authenticationProvider);
-                //.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }

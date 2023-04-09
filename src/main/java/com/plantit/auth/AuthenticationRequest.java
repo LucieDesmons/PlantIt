@@ -1,4 +1,4 @@
-package com.plantit.config.auth;
+package com.plantit.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-
-    private String token;
-    private int idUser;
-    private int role;
+public class AuthenticationRequest {
+    private String email;
+    private String password;
 }

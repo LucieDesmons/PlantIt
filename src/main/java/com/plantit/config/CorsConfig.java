@@ -1,4 +1,4 @@
-package com.plantit.config.config;
+package com.plantit.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

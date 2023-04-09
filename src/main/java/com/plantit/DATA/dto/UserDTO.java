@@ -1,13 +1,11 @@
 package com.plantit.DATA.dto;
 
 import com.fasterxml.jackson.annotation.*;
-import com.plantit.DATA.dal.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -25,8 +23,8 @@ public class UserDTO {
     public static final Long CUSTUMER_ID = 3L;
 
     private Long idUser;
-    private String name;
-    private String firstName;
+    private String lastname;
+    private String firstname;
     private String phone;
     private String email;
     private String login;
