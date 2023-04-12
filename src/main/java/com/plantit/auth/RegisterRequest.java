@@ -13,5 +13,7 @@ public class RegisterRequest {
     private String firstname;
     private String lastname;
     private String email;
+
+    private long userType;
     private String password;
 }
